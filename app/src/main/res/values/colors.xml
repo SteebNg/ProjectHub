@@ -7,4 +7,5 @@
     <color name="mainDark">#0d1117</color>
     <color name="whiteText">#fafafa</color>
     <color name="hintColor">#99EBEBF5</color>
+    <color name="grey">#88888888</color>
 </resources>

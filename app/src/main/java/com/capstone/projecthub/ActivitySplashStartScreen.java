@@ -38,7 +38,7 @@ public class ActivitySplashStartScreen extends AppCompatActivity {
 
         //delay and let the animation play before starting the home activity
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(ActivitySplashStartScreen.this, HomeActivity.class));
+            startActivity(new Intent(ActivitySplashStartScreen.this, LoginActivity.class));
             finish();
         }, 4000);
     }
