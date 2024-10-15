@@ -57,7 +57,7 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:scaleX="10"
             android:scaleY="10"
-            motion:transitionEasing="cubic(1,0,0.8,0.8)" />
+            motion:transitionEasing="cubic(0.3,0.3,0.8,0.8)" />
         <Constraint
             android:id="@+id/imageLogoStart"
             motion:layout_constraintEnd_toEndOf="parent"
