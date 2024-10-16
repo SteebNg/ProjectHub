@@ -1,7 +1,9 @@
 package com.capstone.projecthub;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -109,7 +111,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.textSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO)redirect to register activity
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
         binding.buttonLogin.setOnClickListener(new View.OnClickListener() {
