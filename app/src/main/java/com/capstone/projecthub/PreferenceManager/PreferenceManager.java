@@ -3,6 +3,8 @@ package com.capstone.projecthub.PreferenceManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.capstone.projecthub.Constants;
+
 public class PreferenceManager {
 
     private final SharedPreferences sharedPreferences;
