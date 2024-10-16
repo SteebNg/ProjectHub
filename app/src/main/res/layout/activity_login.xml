@@ -159,7 +159,6 @@
         app:layout_constraintStart_toStartOf="@+id/buttonLogin"
         app:layout_constraintTop_toTopOf="@+id/buttonLogin"/>
 
-
     <TextView
         android:id="@+id/textSignUp"
         android:layout_width="wrap_content"
