@@ -81,30 +81,48 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (!task.isSuccessful()) {
-                            registerUser();
-                        } else {
-                            Toast.makeText(RegisterActivity.this,
-                                    "This email has already been registered",
-                                    Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            if (task.getResult().isEmpty()) {
+                                registerUser();
+                            } else {
+                                Toast.makeText(RegisterActivity.this,
+                                        "This email has already been registered",
+                                        Toast.LENGTH_SHORT).show();
+                                isRegisterButtonLoading(false);
+                            }
                         }
                     }
                 });
     }
 
     private void registerUser() {
-        auth.signInWithEmailAndPassword(binding.editTextEmail.getText().toString().trim(),
+        auth.createUserWithEmailAndPassword(binding.editTextEmail.getText().toString().trim(),
                 binding.editTextPassword.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    //(TODO) verify email
-                    registerUserToDb();
+                    currentUser = auth.getCurrentUser();
+                    sendVerificationEmail();
                 } else {
                     Toast.makeText(RegisterActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
                     isRegisterButtonLoading(false);
                 }
+            }
+        });
+    }
+
+    private void sendVerificationEmail() {
+
+        currentUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                registerUserToDb();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                currentUser.delete();
             }
         });
     }
@@ -114,12 +132,13 @@ public class RegisterActivity extends AppCompatActivity {
         preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
 
 
-        //(TODO) Redirect the usrer to verify notify page
+        //(TODO) Redirect the user to verify notify page
+        Intent intent = new Intent(RegisterActivity.this, NotifyEmailVerifyActivity.class);
+        startActivity(intent);
         finish();
     }
 
     private void registerUserToDb() {
-        currentUser = auth.getCurrentUser();
 
         Map<String, Object> user = new HashMap<>();
         user.put(Constants.KEY_EMAIL, binding.editTextEmail.getText().toString().trim());
@@ -175,14 +194,29 @@ public class RegisterActivity extends AppCompatActivity {
         if (isLoading) {
             binding.progressBarRegister.setVisibility(View.VISIBLE);
             binding.buttonRegister.setText("");
+            binding.buttonRegister.setOnClickListener(null);
         } else {
-            binding.progressBarRegister.setVisibility(View.VISIBLE);
+            binding.progressBarRegister.setVisibility(View.GONE);
             binding.buttonRegister.setText("Register");
+            binding.buttonRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isRegisterButtonLoading(true);
+                    boolean credentialsValid = isCredentialsValid();
+
+                    if (credentialsValid) {
+                        checkEmailExist();
+                    } else {
+                        isRegisterButtonLoading(false);
+                    }
+                }
+            });
         }
     }
 
     private void init() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        preferenceManager = new PreferenceManager(getApplicationContext());
     }
 }
