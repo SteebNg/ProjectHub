@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private PreferenceManager preferenceManager;
     private Button button;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onStart() {
@@ -125,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (credentialsValid) {
                     signIn();
+                } else {
+                    isLoginButtonLoading(false);
                 }
             }
         });
@@ -156,8 +160,10 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //sign in is success
+                        currentUser = auth.getCurrentUser();
+
                         preferenceManager.putString(Constants.KEY_EMAIL, email);
-                        preferenceManager.putString(Constants.KEY_PASSWORD, password);
+                        preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
 
                         //(TODO)redirect to home activity
                     }
