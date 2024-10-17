@@ -38,4 +38,8 @@ public class PreferenceManager {
         editor.clear();
         editor.apply();
     }
+
+    public boolean contains(String key) {
+        return sharedPreferences.contains(key);
+    }
 }
