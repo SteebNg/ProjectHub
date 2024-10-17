@@ -160,12 +160,14 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         //sign in is success
-                        currentUser = auth.getCurrentUser();
+                        if (task.isSuccessful()) {
+                            currentUser = auth.getCurrentUser();
 
-                        preferenceManager.putString(Constants.KEY_EMAIL, email);
-                        preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
+                            preferenceManager.putString(Constants.KEY_EMAIL, email);
+                            preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
 
-                        //(TODO)redirect to home activity
+                            //(TODO)redirect to home activity
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

@@ -1,5 +1,6 @@
 package com.capstone.projecthub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -98,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    //(TODO) verify email
                     registerUserToDb();
                 } else {
                     Toast.makeText(RegisterActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
@@ -111,7 +113,9 @@ public class RegisterActivity extends AppCompatActivity {
         preferenceManager.putString(Constants.KEY_EMAIL, binding.editTextEmail.getText().toString().trim());
         preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
 
-        //(TODO) redirect the user to home
+
+        //(TODO) Redirect the usrer to verify notify page
+        finish();
     }
 
     private void registerUserToDb() {
