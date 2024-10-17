@@ -2,6 +2,8 @@ package com.capstone.projecthub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -70,6 +72,23 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     isRegisterButtonLoading(false);
                 }
+            }
+        });
+        //show password
+        binding.imageEyeHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imageEyeHide.setVisibility(View.GONE);
+                binding.imageEyeShow.setVisibility(View.VISIBLE);
+                binding.editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+        });
+        binding.imageEyeShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imageEyeHide.setVisibility(View.VISIBLE);
+                binding.imageEyeShow.setVisibility(View.GONE);
+                binding.editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
     }
