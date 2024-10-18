@@ -50,7 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         //Please DO NOT USER FIREBASE DOCUMENTED METHOD TO CHECK
         preferenceManager = new PreferenceManager(getApplicationContext());
         if (preferenceManager.contains(Constants.KEY_EMAIL)) {
-            //(TODO)redirect the user to Home
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -168,7 +170,9 @@ public class LoginActivity extends AppCompatActivity {
                                 preferenceManager.putString(Constants.KEY_EMAIL, email);
                                 preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
 
-                                //(TODO)redirect to home activity
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 auth.signOut();
                                 Toast.makeText(LoginActivity.this, "Please verify your email", Toast.LENGTH_SHORT).show();

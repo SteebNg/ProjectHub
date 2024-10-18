@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProjectHub"
         tools:targetApi="31">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".NotifyEmailVerifyActivity"
             android:exported="false" />
         <activity
