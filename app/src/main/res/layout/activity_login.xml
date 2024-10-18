@@ -38,7 +38,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
         android:fontFamily="@font/alata"
-        android:text="Log in to Yapper"
+        android:text="Log in to ProjectHub"
         android:textColor="@color/whiteText"
         android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/edit_text_border_background"
         android:fontFamily="@font/alata"
-        android:hint="yapper@email.com"
+        android:hint="project@email.com"
         android:paddingStart="10dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
@@ -158,7 +158,6 @@
         app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
         app:layout_constraintStart_toStartOf="@+id/buttonLogin"
         app:layout_constraintTop_toTopOf="@+id/buttonLogin"/>
-
 
     <TextView
         android:id="@+id/textSignUp"
