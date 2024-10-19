@@ -2,60 +2,119 @@ package com.capstone.projecthub;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.capstone.projecthub.Adapter.ProjectListsAdapter;
+import com.capstone.projecthub.Listeners.ProjectListListener;
+import com.capstone.projecthub.Model.Project;
+import com.capstone.projecthub.PreferenceManager.PreferenceManager;
+import com.capstone.projecthub.databinding.FragmentProjectListsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProjectListsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProjectListsFragment extends Fragment {
+public class ProjectListsFragment extends Fragment implements ProjectListListener {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public ProjectListsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProjectListsFragment.
-     */
-    public static ProjectListsFragment newInstance(String param1, String param2) {
-        ProjectListsFragment fragment = new ProjectListsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentProjectListsBinding binding;
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore db;
+    private ArrayList<Project> projects;
+    private ProjectListsAdapter projectListsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_lists, container, false);
+        binding = FragmentProjectListsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        init();
+        setListeners();
+        loadProjects();
+
+        return view;
+    }
+
+    private void init() {
+        isRecyclerLoading(true);
+
+        preferenceManager = new PreferenceManager(getContext());
+        db = FirebaseFirestore.getInstance();
+        projects = new ArrayList<>();
+        projectListsAdapter = new ProjectListsAdapter(projects, this);
+        binding.recyclerProjectList.setAdapter(projectListsAdapter);
+    }
+
+    private void loadProjects() {
+        db.collection(Constants.KEY_PROJECT_LISTS)
+                .whereArrayContains(Constants.KEY_PROJECT_MEMBERS_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        projects.clear();
+                        if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
+                            isRecyclerLoading(false);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Project project = new Project();
+                                project.projectName = document.getString(Constants.KEY_PROJECT_NAME);
+                                project.projectDescription = document.getString(Constants.KEY_PROJECT_DESC);
+                                project.dueDate = document.getDate(Constants.KEY_PROJECT_DUE_DATE);
+
+                                projects.add(project);
+                            }
+                            binding.textNoProjects.setVisibility(View.GONE);
+                            projectListsAdapter.notifyDataSetChanged();
+                        } else {
+                            binding.textNoProjects.setVisibility(View.VISIBLE);
+                            isRecyclerLoading(false);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Failed to retrieve projects", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void isRecyclerLoading(boolean isLoading) {
+        if (isLoading) {
+            binding.progressBarProjectLists.setVisibility(View.VISIBLE);
+            binding.recyclerProjectList.setVisibility(View.GONE);
+        } else {
+            binding.progressBarProjectLists.setVisibility(View.GONE);
+            binding.recyclerProjectList.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setListeners() {
+        binding.buttonAddProjects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //(TODO) direct user to add projects activity
+            }
+        });
+    }
+
+    @Override
+    public void onProjectClicked(Project project) {
+        Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 }

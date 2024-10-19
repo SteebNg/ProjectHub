@@ -38,11 +38,38 @@
             app:iconTint="@color/mainDark"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProjectList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/actionBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <ProgressBar
+            android:id="@+id/progressBarProjectLists"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textNoProjects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nothing here"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:textColor="@color/hintColor" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

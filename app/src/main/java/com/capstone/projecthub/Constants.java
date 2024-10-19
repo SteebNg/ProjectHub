@@ -9,4 +9,9 @@ public class Constants {
     public static String KEY_USER_LIST = "users";
     public static String KEY_USER_ID = "userId";
     public static String KEY_PROFILE_IMAGE = "profileImage";
+    public static String KEY_PROJECT_LISTS = "projects";
+    public static String KEY_PROJECT_MEMBERS_ID = "projectMembersId";
+    public static String KEY_PROJECT_NAME = "projectName";
+    public static String KEY_PROJECT_DESC = "projectDesc";
+    public static String KEY_PROJECT_DUE_DATE = "projectDate";
 }
