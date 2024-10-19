@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private FirebaseUser currentUser;
     private StorageReference storageReference;
-    private int PICK_IMAGE_REQUEST = 1;
+    private final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -173,6 +173,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             showToast("Image Upload Successfully");
+                            updateProfileImage(currentUser.getUid());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
