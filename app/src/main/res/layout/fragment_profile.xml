@@ -3,13 +3,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
     android:background="@color/mainDark">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile Fragment"
-        android:textColor="@color/whiteText"/>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Me"
+            android:textColor="@color/whiteText" 
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="26sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/profile_image_background"
+            android:layout_marginTop="80dp"
+            app:riv_oval="true"/>
+
+        <FrameLayout
+            android:id="@+id/layoutCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageProfile"
+            app:layout_constraintEnd_toEndOf="@+id/imageProfile"
+            android:foregroundGravity="center">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/profile_image_background"
+                android:backgroundTint="@color/mainGreen" />
+
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:src="@drawable/baseline_camera_alt_24"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textProfileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Profile Name"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCamera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:textSize="21sp"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="52dp"
+            android:textColor="@color/whiteText"
+            android:fontFamily="@font/alata"/>
+
+        <TextView
+            android:id="@+id/textProfileEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Profile Email"
+            app:layout_constraintTop_toBottomOf="@+id/textProfileName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="52dp"
+            android:textColor="@color/hintColor"/>
+
+        <View
+            android:id="@+id/buttonLogout"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintTop_toBottomOf="@+id/textProfileEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginTop="24dp"/>
+
+        <FrameLayout
+            android:id="@+id/imageLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/buttonLogout"
+            app:layout_constraintStart_toStartOf="@+id/buttonLogout"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonLogout"
+            android:layout_marginStart="10dp">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/profile_image_background"
+                android:backgroundTint="@color/secondDark" />
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/logout"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            app:layout_constraintStart_toEndOf="@+id/imageLogout"
+            app:layout_constraintTop_toTopOf="@+id/imageLogout"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLogout"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/alata"
+            android:paddingBottom="3dp"
+            android:textColor="@color/mainDark"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/buttonLogout"
+            app:layout_constraintTop_toTopOf="@+id/buttonLogout"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonLogout"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            android:layout_marginEnd="5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

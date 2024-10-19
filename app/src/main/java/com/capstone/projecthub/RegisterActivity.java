@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -122,6 +124,18 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     currentUser = auth.getCurrentUser();
+
+                    //setDisplayName
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(binding.editTextUsername.getText().toString())
+                                    .build();
+                    currentUser.updateProfile(profileUpdates)
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("Setting Display Name", "Fail");
+                                        }
+                                    });
                     sendVerificationEmail();
                 } else {
                     Toast.makeText(RegisterActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
@@ -146,17 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUserToPreference() {
-        preferenceManager.putString(Constants.KEY_EMAIL, binding.editTextEmail.getText().toString().trim());
-        preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
-
-
-        //(TODO) Redirect the user to verify notify page
-        Intent intent = new Intent(RegisterActivity.this, NotifyEmailVerifyActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     private void registerUserToDb() {
 
         Map<String, Object> user = new HashMap<>();
@@ -169,7 +172,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        registerUserToPreference();
+                        Intent intent = new Intent(RegisterActivity.this, NotifyEmailVerifyActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
