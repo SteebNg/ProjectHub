@@ -1,42 +1,35 @@
 package com.capstone.projecthub;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.capstone.projecthub.Adapter.ProjectListsAdapter;
-import com.capstone.projecthub.Listeners.ProjectListListener;
 import com.capstone.projecthub.Model.Project;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.FragmentProjectListsBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProjectListsFragment#newInstance} factory method to
+ * Use the {@link ProjectListsFragment} factory method to
  * create an instance of this fragment.
  */
-public class ProjectListsFragment extends Fragment implements ProjectListListener {
+public class ProjectListsFragment extends Fragment {
 
     private FragmentProjectListsBinding binding;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
-    private ArrayList<Project> projects;
-    private ProjectListsAdapter projectListsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +49,6 @@ public class ProjectListsFragment extends Fragment implements ProjectListListene
 
         preferenceManager = new PreferenceManager(getContext());
         db = FirebaseFirestore.getInstance();
-        projects = new ArrayList<>();
-        projectListsAdapter = new ProjectListsAdapter(projects, this);
-        binding.recyclerProjectList.setAdapter(projectListsAdapter);
     }
 
     private void loadProjects() {
@@ -67,9 +57,20 @@ public class ProjectListsFragment extends Fragment implements ProjectListListene
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        projects.clear();
                         if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
                             isRecyclerLoading(false);
+
+                            ArrayList<Project> projects = new ArrayList<>();
+                            ProjectListsAdapter adapter = getProjectListsAdapter(projects);
+                            binding.recyclerProjectList.setAdapter(adapter);
+
+                            adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
+                                @Override
+                                public void onClick(Project project) {
+                                    //(TODO) Direct the user to the correct activity
+                                    Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Project project = new Project();
@@ -80,7 +81,8 @@ public class ProjectListsFragment extends Fragment implements ProjectListListene
                                 projects.add(project);
                             }
                             binding.textNoProjects.setVisibility(View.GONE);
-                            projectListsAdapter.notifyDataSetChanged();
+                            projects.sort(Comparator.comparing(obj -> obj.dueDate));
+                            adapter.notifyDataSetChanged();
                         } else {
                             binding.textNoProjects.setVisibility(View.VISIBLE);
                             isRecyclerLoading(false);
@@ -94,11 +96,26 @@ public class ProjectListsFragment extends Fragment implements ProjectListListene
                 });
     }
 
+    private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
+        ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
+
+        adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(Project project) {
+                //(TODO) Direct user to the correct activity
+                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return adapter;
+    }
+
     private void isRecyclerLoading(boolean isLoading) {
         if (isLoading) {
+            binding.viewTimelineProject.setVisibility(View.GONE);
             binding.progressBarProjectLists.setVisibility(View.VISIBLE);
             binding.recyclerProjectList.setVisibility(View.GONE);
         } else {
+            binding.viewTimelineProject.setVisibility(View.VISIBLE);
             binding.progressBarProjectLists.setVisibility(View.GONE);
             binding.recyclerProjectList.setVisibility(View.VISIBLE);
         }
@@ -111,10 +128,5 @@ public class ProjectListsFragment extends Fragment implements ProjectListListene
                 //(TODO) direct user to add projects activity
             }
         });
-    }
-
-    @Override
-    public void onProjectClicked(Project project) {
-        Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 }
