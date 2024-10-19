@@ -8,4 +8,5 @@ public class Constants {
     public static String KEY_USERNAME = "username";
     public static String KEY_USER_LIST = "users";
     public static String KEY_USER_ID = "userId";
+    public static String KEY_PROFILE_IMAGE = "profileImage";
 }

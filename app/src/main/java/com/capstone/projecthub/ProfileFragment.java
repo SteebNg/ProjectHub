@@ -1,8 +1,13 @@
 package com.capstone.projecthub;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,13 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -66,7 +78,8 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private PreferenceManager preferenceManager;
     private FirebaseUser currentUser;
-    private FirebaseFirestore db;
+    private StorageReference storageReference;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +97,22 @@ public class ProfileFragment extends Fragment {
     private void setUserDetails() {
         binding.textProfileName.setText(currentUser.getDisplayName());
         binding.textProfileEmail.setText(preferenceManager.getString(Constants.KEY_EMAIL));
+
+        //(TODO) update profile image
+        updateProfileImage(currentUser.getUid());
+    }
+
+    private void updateProfileImage(String profileId) {
+        storageReference.child(Constants.KEY_USER_LIST
+                + "/" + profileId + "/" + Constants.KEY_PROFILE_IMAGE)
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        //(TODO) Use Glide to load Images
+                        Glide.with(getContext()).load(uri).into(binding.imageProfile);
+                    }
+                });
     }
 
     private void setListeners() {
@@ -96,9 +125,17 @@ public class ProfileFragment extends Fragment {
         binding.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO)pickImage();
+                //(TODO)pickImage()
+                openFileChooser();
             }
         });
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     private void signOut() {
@@ -118,6 +155,34 @@ public class ProfileFragment extends Fragment {
     private void init() {
         preferenceManager = new PreferenceManager(getContext());
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+
+            storageReference
+                    .child(Constants.KEY_USER_LIST
+                            + "/"
+                            + currentUser.getUid() + "/"
+                            + Constants.KEY_PROFILE_IMAGE)
+                    .putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            showToast("Image Upload Successfully");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            showToast("Something went wrong");
+                        }
+                    });
+        }
     }
 }
