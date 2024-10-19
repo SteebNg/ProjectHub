@@ -98,7 +98,6 @@ public class ProfileFragment extends Fragment {
         binding.textProfileName.setText(currentUser.getDisplayName());
         binding.textProfileEmail.setText(preferenceManager.getString(Constants.KEY_EMAIL));
 
-        //(TODO) update profile image
         updateProfileImage(currentUser.getUid());
     }
 
@@ -109,7 +108,6 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        //(TODO) Use Glide to load Images
                         Glide.with(getContext()).load(uri).into(binding.imageProfile);
                     }
                 });
@@ -125,7 +123,6 @@ public class ProfileFragment extends Fragment {
         binding.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO)pickImage()
                 openFileChooser();
             }
         });
