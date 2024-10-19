@@ -3,6 +3,8 @@ package com.capstone.projecthub.Model;
 public class Image {
     String name, url;
 
+    //will be used in sharing files section
+
     public Image() {
 
     }
