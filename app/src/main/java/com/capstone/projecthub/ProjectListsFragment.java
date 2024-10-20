@@ -1,5 +1,6 @@
 package com.capstone.projecthub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,14 +65,6 @@ public class ProjectListsFragment extends Fragment {
                             ProjectListsAdapter adapter = getProjectListsAdapter(projects);
                             binding.recyclerProjectList.setAdapter(adapter);
 
-                            adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
-                                @Override
-                                public void onClick(Project project) {
-                                    //(TODO) Direct the user to the correct activity
-                                    Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Project project = new Project();
                                 project.projectName = document.getString(Constants.KEY_PROJECT_NAME);
@@ -125,7 +118,15 @@ public class ProjectListsFragment extends Fragment {
         binding.buttonAddProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) direct user to add projects activity
+                Intent intent = new Intent(getContext(), AddProjectsActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.buttonRefreshProjectList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isRecyclerLoading(true);
+                loadProjects();
             }
         });
     }

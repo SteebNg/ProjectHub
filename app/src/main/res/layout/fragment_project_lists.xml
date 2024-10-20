@@ -24,6 +24,18 @@
             app:layout_constraintStart_toStartOf="parent"
             android:fontFamily="@font/alata"/>
 
+        <ImageView
+            android:id="@+id/buttonRefreshProjectList"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_refresh_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/actionBar"
+            app:layout_constraintBottom_toBottomOf="@+id/actionBar"
+            app:tint="@color/mainGreen"
+            android:layout_marginEnd="19dp"
+            android:layout_marginTop="4dp"/>
+
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/buttonAddProjects"
             android:layout_width="wrap_content"

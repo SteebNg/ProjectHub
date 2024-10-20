@@ -38,7 +38,9 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="14dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="4dp">
 
         <TextView
             android:id="@+id/textProjectListsName"
@@ -46,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Project Name"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
