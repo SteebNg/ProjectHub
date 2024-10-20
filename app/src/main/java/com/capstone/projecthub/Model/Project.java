@@ -1,11 +1,12 @@
 package com.capstone.projecthub.Model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Project {
-    public String projectName, projectDescription;
+public class Project implements Serializable {
+    public String projectName, projectDescription, projectId, projectLeaderId, projectImage;
     public Date dueDate;
 
     public Project() {

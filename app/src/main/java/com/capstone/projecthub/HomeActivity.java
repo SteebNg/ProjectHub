@@ -17,6 +17,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    //(TODO) Check the internet status
+
     ActivityHomeBinding binding;
 
     @Override

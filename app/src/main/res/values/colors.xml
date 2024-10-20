@@ -11,4 +11,8 @@
     <color name="backgroundColorForFloatingView">#212830</color>
     <color name="borderColorForFloatingView">#3c434c</color>
     <color name="backgroundColorForDarkButton">#39353E</color>
+    <color name="red">#F44336</color>
+    <color name="blue">#0022E2</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="transparentRed">#80F44336</color>
 </resources>
