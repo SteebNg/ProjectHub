@@ -1,25 +1,42 @@
 package com.capstone.projecthub;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityAddProjectsBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class AddProjectsActivity extends AppCompatActivity {
 
-    ActivityAddProjectsBinding binding;
-    DatePickerDialog datePickerDialog;
+    private ActivityAddProjectsBinding binding;
+    private DatePickerDialog datePickerDialog;
+    private FirebaseFirestore db;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +56,22 @@ public class AddProjectsActivity extends AppCompatActivity {
 
     private void init() {
         binding.editTextAddProjectDueDate.setInputType(InputType.TYPE_NULL);
+        db = FirebaseFirestore.getInstance();
+        preferenceManager = new PreferenceManager(AddProjectsActivity.this);
+    }
+
+    private Date getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try {
+            Date date = dateFormat.parse(binding.editTextAddProjectDueDate.getText().toString());
+
+            //Success
+            return date;
+        } catch (ParseException e) {
+            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     private void setListeners() {
@@ -51,7 +84,34 @@ public class AddProjectsActivity extends AppCompatActivity {
         binding.buttonCreateProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Direct to ativity
+                Date dateSelected = getDate();
+
+                if (dateSelected != null) {
+                    Map<String, Object> project = new HashMap<>();
+                    project.put(Constants.KEY_PROJECT_NAME, binding.editTextAddProjectName.getText().toString());
+                    project.put(Constants.KEY_PROJECT_DESC, binding.editTextAddProjectDesc.getText().toString());
+                    project.put(Constants.KEY_PROJECT_DUE_DATE, dateSelected);
+                    //add user to the members list
+                    project.put(Constants.KEY_PROJECT_MEMBERS_ID, Arrays.asList(preferenceManager.getString(Constants.KEY_USER_ID)));
+
+                    db.collection(Constants.KEY_PROJECT_LISTS)
+                            .add(project)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    //(TODO) Direct to activity
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("result", documentReference.getId());
+                                    setResult(RESULT_OK, returnIntent);
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddProjectsActivity.this, "Failed to update db", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
         binding.editTextAddProjectDueDate.setOnClickListener(new View.OnClickListener() {

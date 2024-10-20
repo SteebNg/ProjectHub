@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.capstone.projecthub.Adapter.ProjectListsAdapter;
@@ -31,6 +32,7 @@ public class ProjectListsFragment extends Fragment {
     private FragmentProjectListsBinding binding;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
+    private int KEY_GET_ACTIVITY_RESULT = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,7 +121,7 @@ public class ProjectListsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddProjectsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, KEY_GET_ACTIVITY_RESULT);
             }
         });
         binding.buttonRefreshProjectList.setOnClickListener(new View.OnClickListener() {
@@ -129,5 +131,16 @@ public class ProjectListsFragment extends Fragment {
                 loadProjects();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == KEY_GET_ACTIVITY_RESULT) {
+            if (resultCode == HomeActivity.RESULT_OK) {
+                String documentIdOfCreatedProject = data.getStringExtra("result");
+                //(TODO) Pass the document into the new Activity
+            }
+        }
     }
 }
