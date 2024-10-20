@@ -1,5 +1,6 @@
 package com.capstone.projecthub;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -7,15 +8,18 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.capstone.projecthub.Model.Project;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityProjectHomeBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class ProjectHomeActivity extends AppCompatActivity {
 
@@ -51,10 +56,11 @@ public class ProjectHomeActivity extends AppCompatActivity {
         init();
         setListeners();
         updateProjectDetails();
+        //(TODO) Update announcement
     }
 
     private void updateProjectDetails() {
-        db.collection(Constants.KEY_ANNOUNCEMENTS)
+        db.collection(Constants.KEY_PROJECT_LISTS)
                 .document(currentProject.projectId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -74,6 +80,8 @@ public class ProjectHomeActivity extends AppCompatActivity {
                                 binding.textProjectDueDateHome.setText(projectDueDate);
                                 updateLeaderName(document.getString(Constants.KEY_PROJECT_LEADER));
                                 checkIfLeader(document.getString(Constants.KEY_PROJECT_LEADER));
+                                updateProfileImage();
+                                updateProjectImage(document.getString(Constants.KEY_PROJECT_IMAGE));
                             }
                         }
                     }
@@ -81,6 +89,66 @@ public class ProjectHomeActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProjectHomeActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateProjectImage(String imageString) {
+        if (imageString != null) {
+            ProjectHomeActivity context = ProjectHomeActivity.this;
+            switch (imageString) {
+                case "0":
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss1)
+                    );
+                    break;
+                case "1":
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss2)
+                    );
+                    break;
+                case "2":
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss3)
+                    );
+                    break;
+                case "3":
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss4)
+                    );
+                    break;
+                case "4":
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss5)
+                    );
+                    break;
+                default:
+                    binding.imageProjectHome.setImageDrawable(
+                            ContextCompat.getDrawable(context, R.drawable.discuss6)
+                    );
+                    break;
+            }
+        }
+    }
+
+    private void updateProfileImage() {
+        storageReference.child(Constants.KEY_USER_LIST
+                + "/"
+                + preferenceManager.getString(Constants.KEY_USER_ID)
+                + "/"
+                + Constants.KEY_PROFILE_IMAGE)
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        if (uri != null) {
+                            Glide.with(ProjectHomeActivity.this).load(uri).into(binding.imageProfileProjectHomeAnnouncement);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProjectHomeActivity.this, "Failed to retrieved profile image", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

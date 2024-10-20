@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:text="+ Add Comment"
         android:id="@+id/textAnnouncementAddComment"
-        android:textSize="124p"
+        android:textSize="12sp"
         app:layout_constraintTop_toBottomOf="@+id/viewDividerAnnouncement"
         app:layout_constraintStart_toStartOf="@+id/textAnnouncementTitle"
         android:layout_marginTop="10dp"
