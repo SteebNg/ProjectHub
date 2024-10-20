@@ -1,61 +1,145 @@
 package com.capstone.projecthub;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.capstone.projecthub.Adapter.ProjectListsAdapter;
+import com.capstone.projecthub.Model.Project;
+import com.capstone.projecthub.PreferenceManager.PreferenceManager;
+import com.capstone.projecthub.databinding.FragmentProjectListsBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProjectListsFragment#newInstance} factory method to
+ * Use the {@link ProjectListsFragment} factory method to
  * create an instance of this fragment.
  */
 public class ProjectListsFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public ProjectListsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProjectListsFragment.
-     */
-    public static ProjectListsFragment newInstance(String param1, String param2) {
-        ProjectListsFragment fragment = new ProjectListsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentProjectListsBinding binding;
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore db;
+    private int KEY_GET_ACTIVITY_RESULT = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_lists, container, false);
+        binding = FragmentProjectListsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        init();
+        setListeners();
+        loadProjects();
+
+        return view;
+    }
+
+    private void init() {
+        isRecyclerLoading(true);
+
+        preferenceManager = new PreferenceManager(getContext());
+        db = FirebaseFirestore.getInstance();
+    }
+
+    private void loadProjects() {
+        db.collection(Constants.KEY_PROJECT_LISTS)
+                .whereArrayContains(Constants.KEY_PROJECT_MEMBERS_ID, preferenceManager.getString(Constants.KEY_USER_ID))
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
+                            isRecyclerLoading(false);
+
+                            ArrayList<Project> projects = new ArrayList<>();
+                            ProjectListsAdapter adapter = getProjectListsAdapter(projects);
+                            binding.recyclerProjectList.setAdapter(adapter);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Project project = new Project();
+                                project.projectName = document.getString(Constants.KEY_PROJECT_NAME);
+                                project.projectDescription = document.getString(Constants.KEY_PROJECT_DESC);
+                                project.dueDate = document.getDate(Constants.KEY_PROJECT_DUE_DATE);
+
+                                projects.add(project);
+                            }
+                            binding.textNoProjects.setVisibility(View.GONE);
+                            projects.sort(Comparator.comparing(obj -> obj.dueDate));
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            binding.textNoProjects.setVisibility(View.VISIBLE);
+                            isRecyclerLoading(false);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Failed to retrieve projects", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
+        ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
+
+        adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(Project project) {
+                //(TODO) Direct user to the correct activity
+            }
+        });
+        return adapter;
+    }
+
+    private void isRecyclerLoading(boolean isLoading) {
+        if (isLoading) {
+            binding.viewTimelineProject.setVisibility(View.GONE);
+            binding.progressBarProjectLists.setVisibility(View.VISIBLE);
+            binding.recyclerProjectList.setVisibility(View.GONE);
+        } else {
+            binding.viewTimelineProject.setVisibility(View.VISIBLE);
+            binding.progressBarProjectLists.setVisibility(View.GONE);
+            binding.recyclerProjectList.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setListeners() {
+        binding.buttonAddProjects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddProjectsActivity.class);
+                startActivityForResult(intent, KEY_GET_ACTIVITY_RESULT);
+            }
+        });
+        binding.buttonRefreshProjectList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isRecyclerLoading(true);
+                loadProjects();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == KEY_GET_ACTIVITY_RESULT) {
+            if (resultCode == HomeActivity.RESULT_OK) {
+                String documentIdOfCreatedProject = data.getStringExtra("result");
+                //(TODO) Pass the document into the new Activity
+            }
+        }
     }
 }

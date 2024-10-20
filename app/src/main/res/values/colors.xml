@@ -8,4 +8,7 @@
     <color name="whiteText">#fafafa</color>
     <color name="hintColor">#99EBEBF5</color>
     <color name="grey">#88888888</color>
+    <color name="backgroundColorForFloatingView">#212830</color>
+    <color name="borderColorForFloatingView">#3c434c</color>
+    <color name="backgroundColorForDarkButton">#39353E</color>
 </resources>
