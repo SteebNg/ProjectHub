@@ -98,7 +98,6 @@ public class ProjectListsFragment extends Fragment {
             @Override
             public void onClick(Project project) {
                 //(TODO) Direct user to the correct activity
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
         return adapter;
