@@ -16,4 +16,6 @@
     <color name="yellow">#FFEB3B</color>
     <color name="transparentRed">#80F44336</color>
     <color name="popUpColor">#192134</color>
+    <color name="popUpColor2">#242424</color>
+    <color name="transparentGreen">#B33BEA87</color>
 </resources>

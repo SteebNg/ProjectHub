@@ -10,7 +10,7 @@ public class Announcement implements Serializable {
     public Date date;
 
     public String dateString() {
-        String dateFormat = "dd/MM/yyyy";
+        String dateFormat = "dd/MM/yyyy HH:mm:ss";
 
         DateFormat df = new SimpleDateFormat(dateFormat);
 

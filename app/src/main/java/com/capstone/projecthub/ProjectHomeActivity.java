@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.capstone.projecthub.Adapter.AnnouncementListAdapter;
+import com.capstone.projecthub.Model.Announcement;
 import com.capstone.projecthub.Model.Project;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityProjectHomeBinding;
@@ -25,12 +27,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ProjectHomeActivity extends AppCompatActivity {
 
@@ -59,7 +63,60 @@ public class ProjectHomeActivity extends AppCompatActivity {
         init();
         setListeners();
         updateProjectDetails();
+        updateAnnouncementList();
+    }
+
+    private void updateAnnouncementList() {
         //(TODO) Update announcement
+        db.collection(Constants.KEY_ANNOUNCEMENTS)
+                .whereEqualTo(Constants.KEY_ANNOUNCEMENTS_PROJECT_ID, currentProject.projectId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
+                            ArrayList<Announcement> announcements = new ArrayList<>();
+                            AnnouncementListAdapter adapter = getAnnouncementListsAdapter(announcements);
+                            binding.recyclerAnnouncementList.setAdapter(adapter);
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Announcement announcement = new Announcement();
+                                announcement.announcerId = document.getString(Constants.KEY_ANNOUNCEMENTS_ANNOUNCER_ID);
+                                announcement.announcerName = document.getString(Constants.KEY_ANNOUNCEMENTS_ANNOUNCER_NAME);
+                                announcement.body = document.getString(Constants.KEY_ANNOUNCEMENTS_BODY);
+                                announcement.date = document.getDate(Constants.KEY_ANNOUNCEMENTS_DATE);
+                                announcement.projectId = document.getString(Constants.KEY_ANNOUNCEMENTS_PROJECT_ID);
+                                announcement.title = document.getString(Constants.KEY_ANNOUNCEMENTS_TITLE);
+                                announcement.announcementId = document.getId();
+
+                                announcements.add(announcement);
+                            }
+                            announcements.sort(Comparator.comparing(obj -> obj.date, Comparator.reverseOrder()));
+                            adapter.notifyDataSetChanged();
+                            binding.imageNoAnnouncementHome.setVisibility(View.GONE);
+                            binding.textNoAnnouncementHome.setVisibility(View.GONE);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        errorLoadingAnnouncement();
+                    }
+                });
+    }
+
+    private void errorLoadingAnnouncement() {
+        binding.imageNoAnnouncementHome.setVisibility(View.GONE);
+        binding.textNoAnnouncementHome.setVisibility(View.GONE);
+        binding.textErrorAnnouncementHome.setVisibility(View.VISIBLE);
+        binding.imageErrorAnnouncementHome.setVisibility(View.VISIBLE);
+    }
+
+    private @NonNull AnnouncementListAdapter getAnnouncementListsAdapter(ArrayList<Announcement> announcements) {
+        AnnouncementListAdapter announcementListAdapter = new AnnouncementListAdapter(
+                ProjectHomeActivity.this, announcements);
+
+        //put onClick here if want
+        return announcementListAdapter;
     }
 
     private void updateProjectDetails() {
@@ -224,7 +281,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT) {
             if (resultCode == ProjectHomeActivity.RESULT_OK) {
-                //(TODO) update announcement
+                updateAnnouncementList();
             }
         }
     }

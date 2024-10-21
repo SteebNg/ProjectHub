@@ -51,7 +51,7 @@ public class ProjectListsAdapter extends RecyclerView.Adapter<ProjectListsAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView projectName, projectDesc, projectDate;
+    TextView projectName, projectDesc, projectDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
