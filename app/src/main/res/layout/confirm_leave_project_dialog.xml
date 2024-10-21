@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/no_internet_dialog_background"
+    android:paddingTop="20dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:paddingBottom="25dp">
+
+    <ImageView
+        android:id="@+id/imageQuitProject"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/quit" />
+
+    <TextView
+        android:id="@+id/textConfirmLeaveTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Leave Project"
+        app:layout_constraintTop_toBottomOf="@+id/imageQuitProject"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        android:fontFamily="@font/alata"
+        android:gravity="center"
+        android:textColor="@color/whiteText"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textConfirmLeaveBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textConfirmLeaveTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Are you sure you want to leave this project?"
+        android:textColor="@color/whiteText"
+        android:fontFamily="@font/alata"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/textConfirmLeaveNote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textConfirmLeaveBody"
+        app:layout_constraintStart_toStartOf="@+id/textConfirmLeaveBody"
+        app:layout_constraintEnd_toEndOf="@+id/textConfirmLeaveBody"
+        android:text="NOTE: You will not be able to join back until the leader adds you back."
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:layout_marginTop="3dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textConfirmLeaveNote"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/buttonCancelLeave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:backgroundTint="@color/backgroundColorForDarkButton"
+            android:textColor="@color/whiteText"
+            android:fontFamily="@font/alata"
+            android:layout_marginEnd="20dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"/>
+
+        <Button
+            android:id="@+id/buttonConfirmLeaveProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/mainDark"
+            android:fontFamily="@font/alata"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

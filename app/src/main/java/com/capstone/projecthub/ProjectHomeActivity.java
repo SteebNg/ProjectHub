@@ -47,6 +47,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private PreferenceManager preferenceManager;
     private final int KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT = 2;
+    private final int KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +221,6 @@ public class ProjectHomeActivity extends AppCompatActivity {
             binding.buttonAddAnnouncementProjectHome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //(TODO) Direct user to activity
                     Intent intent = new Intent(ProjectHomeActivity.this, AddAnnouncementActivity.class);
                     intent.putExtra("ProjectIdForAddAnnouncement", currentProject);
                     startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT);
@@ -263,7 +263,9 @@ public class ProjectHomeActivity extends AppCompatActivity {
         binding.buttonMembersProjectHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Direct to members activity
+                Intent intent = new Intent(ProjectHomeActivity.this, ProjectMembersListActivity.class);
+                intent.putExtra("Project for members list", currentProject);
+                startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE);
             }
         });
     }
@@ -282,6 +284,14 @@ public class ProjectHomeActivity extends AppCompatActivity {
         if (requestCode == KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT) {
             if (resultCode == ProjectHomeActivity.RESULT_OK) {
                 updateAnnouncementList();
+            }
+        } else if (requestCode == KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE) {
+            if (resultCode == ProjectHomeActivity.RESULT_OK && data != null) {
+                if (data.getStringExtra("quit").equals("true")) {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         }
     }

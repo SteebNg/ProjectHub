@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +76,7 @@ public class ProjectListsFragment extends Fragment {
                                 project.projectId = document.getId();
                                 project.projectImage = document.getString(Constants.KEY_PROJECT_IMAGE);
                                 project.projectLeaderId = document.getString(Constants.KEY_PROJECT_LEADER);
+                                project.memberList = ((List<String>) document.get(Constants.KEY_PROJECT_MEMBERS_ID)).toArray(new String[0]);
 
                                 projects.add(project);
                             }

@@ -8,6 +8,7 @@ import java.util.Date;
 public class Project implements Serializable {
     public String projectName, projectDescription, projectId, projectLeaderId, projectImage;
     public Date dueDate;
+    public String[] memberList;
 
     public Project() {
 
