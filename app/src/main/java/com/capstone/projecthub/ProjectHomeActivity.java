@@ -1,5 +1,6 @@
 package com.capstone.projecthub;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -40,6 +42,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private PreferenceManager preferenceManager;
+    private final int KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,9 @@ public class ProjectHomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //(TODO) Direct user to activity
+                    Intent intent = new Intent(ProjectHomeActivity.this, AddAnnouncementActivity.class);
+                    intent.putExtra("ProjectIdForAddAnnouncement", currentProject);
+                    startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT);
                 }
             });
         }
@@ -211,5 +217,15 @@ public class ProjectHomeActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         preferenceManager = new PreferenceManager(ProjectHomeActivity.this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT) {
+            if (resultCode == ProjectHomeActivity.RESULT_OK) {
+                //(TODO) update announcement
+            }
+        }
     }
 }

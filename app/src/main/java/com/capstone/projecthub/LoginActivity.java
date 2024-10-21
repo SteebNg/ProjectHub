@@ -169,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (currentUser.isEmailVerified()) {
                                 preferenceManager.putString(Constants.KEY_EMAIL, email);
                                 preferenceManager.putString(Constants.KEY_USER_ID, currentUser.getUid());
+                                preferenceManager.putString(Constants.KEY_USERNAME, currentUser.getDisplayName());
 
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);

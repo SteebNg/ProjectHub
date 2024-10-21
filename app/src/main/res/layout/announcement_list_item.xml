@@ -70,24 +70,4 @@
         android:fontFamily="@font/alata"
         app:layout_constraintWidth_max="370dp"/>
 
-    <View
-        android:id="@+id/viewDividerAnnouncement"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/textAnnouncementBody"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/hintColor"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+ Add Comment"
-        android:id="@+id/textAnnouncementAddComment"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/viewDividerAnnouncement"
-        app:layout_constraintStart_toStartOf="@+id/textAnnouncementTitle"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/hintColor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

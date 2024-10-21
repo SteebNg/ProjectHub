@@ -17,4 +17,10 @@ public class Constants {
     public static String KEY_PROJECT_IMAGE = "projectImage";
     public static String KEY_PROJECT_LEADER = "projectLeader";
     public static String KEY_ANNOUNCEMENTS = "announcements";
+    public static String KEY_ANNOUNCEMENTS_PROJECT_ID = "projectId";
+    public static String KEY_ANNOUNCEMENTS_TITLE = "title";
+    public static String KEY_ANNOUNCEMENTS_DATE = "date";
+    public static String KEY_ANNOUNCEMENTS_BODY = "body";
+    public static String KEY_ANNOUNCEMENTS_ANNOUNCER_ID = "announcerId";
+    public static String KEY_ANNOUNCEMENTS_ANNOUNCER_NAME = "announcerName";
 }
