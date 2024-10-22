@@ -23,4 +23,5 @@ public class Constants {
     public static String KEY_ANNOUNCEMENTS_BODY = "body";
     public static String KEY_ANNOUNCEMENTS_ANNOUNCER_ID = "announcerId";
     public static String KEY_ANNOUNCEMENTS_ANNOUNCER_NAME = "announcerName";
+    public static String KEY_PENDING_INVITES = "pendingInvites";
 }

@@ -34,6 +34,8 @@ public class ProjectListsFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
     private final int KEY_GET_ACTIVITY_RESULT = 1;
+    private ArrayList<Project> projects;
+    private ProjectListsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +66,8 @@ public class ProjectListsFragment extends Fragment {
                         if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
                             isRecyclerLoading(false);
 
-                            ArrayList<Project> projects = new ArrayList<>();
-                            ProjectListsAdapter adapter = getProjectListsAdapter(projects);
+                            projects = new ArrayList<>();
+                            adapter = getProjectListsAdapter(projects);
                             binding.recyclerProjectList.setAdapter(adapter);
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -97,7 +99,7 @@ public class ProjectListsFragment extends Fragment {
                 });
     }
 
-    private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
+private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
         ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
 
         adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
@@ -146,6 +148,14 @@ public class ProjectListsFragment extends Fragment {
         if (requestCode == KEY_GET_ACTIVITY_RESULT) {
             if (resultCode == HomeActivity.RESULT_OK) {
                 loadProjects();
+                if (data != null && data.getSerializableExtra("quitConfirm") != null) {
+                    Project project = (Project) data.getSerializableExtra("quitConfirm");
+                    int position = projects.indexOf(project);
+
+                    projects.remove(project);
+                    projects.sort(Comparator.comparing(obj -> obj.dueDate));
+                    adapter.notifyItemRemoved(position);
+                }
             }
         }
     }

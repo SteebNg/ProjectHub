@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddMembersActivity"
+    android:background="@color/mainDark">
+
+    <ImageView
+        android:id="@+id/buttonBackFromAddMembers"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/actionBarAddMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Members"
+        android:textColor="@color/whiteText"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@id/buttonBackFromAddMembers"
+        app:layout_constraintStart_toEndOf="@+id/buttonBackFromAddMembers"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromAddMembers"
+        android:fontFamily="@font/alata"
+        android:paddingBottom="6dp"
+        android:layout_marginStart="4dp"/>
+
+    <TextView
+        android:id="@+id/buttonAddMembersToProject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:textColor="@color/hintColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonBackFromAddMembers"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromAddMembers"
+        android:layout_marginEnd="19dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/alata" />
+
+    <SearchView
+        android:id="@+id/searchBarAddMembers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/actionBarAddMembers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@color/secondDark"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@null"/>
+
+    <FrameLayout
+        android:id="@+id/viewRecyclerYetToBeAdded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/searchBarAddMembers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerYetToAddMembers"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textAddMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Members"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecyclerYetToBeAdded"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="21dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textAddMembers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="19dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerAddMembersList"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <ProgressBar
+            android:id="@+id/progressBarAddMembersList"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

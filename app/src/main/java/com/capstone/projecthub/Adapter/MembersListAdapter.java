@@ -110,7 +110,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                         if (document != null && document.exists()) {
                             if (document.getString(Constants.KEY_PROJECT_LEADER)
                                     .equals(preferenceManager.getString(Constants.KEY_USER_ID))
-                                    && membersId.get(position).equals(preferenceManager.getString(Constants.KEY_USER_ID))) {
+                                    && !membersId.get(position).equals(preferenceManager.getString(Constants.KEY_USER_ID))) {
                                 holder.memberSetting.setOnClickListener(v -> {
                                     PopupMenu popupMenu = new PopupMenu(context, holder.memberSetting);
                                     popupMenu.getMenuInflater().inflate(R.menu.members_options_menu, popupMenu.getMenu());

@@ -289,6 +289,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
             if (resultCode == ProjectHomeActivity.RESULT_OK && data != null) {
                 if (data.getStringExtra("quit").equals("true")) {
                     Intent intent = new Intent();
+                    intent.putExtra("quitConfirm", currentProject);
                     setResult(RESULT_OK, intent);
                     finish();
                 }

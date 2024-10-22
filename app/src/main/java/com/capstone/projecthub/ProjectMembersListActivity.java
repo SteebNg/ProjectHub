@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,16 +20,25 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.capstone.projecthub.Adapter.MembersListAdapter;
 import com.capstone.projecthub.Model.Project;
+import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityProjectMembersListBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProjectMembersListActivity extends AppCompatActivity {
 
     private ActivityProjectMembersListBinding binding;
     private Project currentProject;
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,16 @@ public class ProjectMembersListActivity extends AppCompatActivity {
         init();
         setListeners();
         loadMembersList();
+        updateViewForLeader();
+    }
+
+    private void updateViewForLeader() {
+        String userId = preferenceManager.getString(Constants.KEY_USER_ID);
+        ArrayList<String> membersList = new ArrayList<>(Arrays.asList(currentProject.memberList));
+
+        if (!currentProject.projectLeaderId.equals(userId)) {
+            binding.buttonAddMembers.setVisibility(View.GONE);
+        }
     }
 
     private void loadMembersList() {
@@ -52,9 +73,9 @@ public class ProjectMembersListActivity extends AppCompatActivity {
         MembersListAdapter adapter = getMembersListAdapter(membersId);
         binding.recyclerProjectMembersList.setAdapter(adapter);
 
-        isListLoading(false);
         membersId.sort(String::compareToIgnoreCase); //alphabetical order
         adapter.notifyDataSetChanged();
+        isListLoading(false);
     }
 
     private MembersListAdapter getMembersListAdapter(ArrayList<String> membersId) {
@@ -66,15 +87,15 @@ public class ProjectMembersListActivity extends AppCompatActivity {
         isListLoading(true);
 
         currentProject = (Project) getIntent().getSerializableExtra("Project for members list");
+        preferenceManager = new PreferenceManager(ProjectMembersListActivity.this);
+        db = FirebaseFirestore.getInstance();
     }
 
     private void isListLoading(boolean isLoading) {
         if (isLoading) {
-            binding.buttonLeaveProject.setVisibility(View.GONE);
             binding.recyclerProjectMembersList.setVisibility(View.GONE);
             binding.progressBarMembersList.setVisibility(View.VISIBLE);
         } else {
-            binding.buttonLeaveProject.setVisibility(View.VISIBLE);
             binding.recyclerProjectMembersList.setVisibility(View.VISIBLE);
             binding.progressBarMembersList.setVisibility(View.GONE);
         }
@@ -105,12 +126,10 @@ public class ProjectMembersListActivity extends AppCompatActivity {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        //(TODO) Remove user from the project
+                        removeUserFromDatabase();
 
-                        Intent intent = new Intent();
-                        intent.putExtra("quit", "true");
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        dialog.dismiss();
                     }
                 });
             }
@@ -130,5 +149,46 @@ public class ProjectMembersListActivity extends AppCompatActivity {
                 loadMembersList();
             }
         });
+        binding.buttonAddMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProjectMembersListActivity.this, AddMembersActivity.class);
+                intent.putExtra("project", currentProject);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void removeUserFromDatabase() {
+        Map<String, Object> update = new HashMap<>();
+        update.put(Constants.KEY_PROJECT_MEMBERS_ID, FieldValue.arrayRemove(
+                preferenceManager.getString(Constants.KEY_USER_ID)
+        ));
+
+        db.collection(Constants.KEY_PROJECT_LISTS)
+                .document(currentProject.projectId)
+                .update(update)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ProjectMembersListActivity.this
+                                    , "Leave Successful"
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProjectMembersListActivity.this
+                                , "An error occured"
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        Intent intent = new Intent();
+        intent.putExtra("quit", "true");
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
