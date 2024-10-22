@@ -258,6 +258,10 @@ public class ProjectHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //(TODO) Direct to file activity
+                //Pass project details
+                Intent intent = new Intent(ProjectHomeActivity.this, FileSharingActivity.class);
+                intent.putExtra("passedProjectToFileShare", currentProject);
+                startActivity(intent);
             }
         });
         binding.buttonMembersProjectHome.setOnClickListener(new View.OnClickListener() {
