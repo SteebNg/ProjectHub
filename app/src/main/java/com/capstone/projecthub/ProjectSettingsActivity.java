@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -132,6 +133,7 @@ public class ProjectSettingsActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             binding.textEditProjectName.setText(projectName);
+                                            currentProject.projectName = projectName;
                                             Toast.makeText(ProjectSettingsActivity.this, "Changed successfully", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         }
@@ -185,6 +187,7 @@ public class ProjectSettingsActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             binding.textEditProjectDesc.setText(projectDesc);
+                                            currentProject.projectDescription = projectDesc;
                                             Toast.makeText(ProjectSettingsActivity.this, "Changed Successfully", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         }
@@ -260,6 +263,7 @@ public class ProjectSettingsActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             binding.textEditProjectDate.setText(projectDateChange.getText().toString());
+                                            currentProject.dueDate = dateSelected;
                                             Toast.makeText(ProjectSettingsActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         }
@@ -284,10 +288,10 @@ public class ProjectSettingsActivity extends AppCompatActivity {
                 dialog.setCancelable(true);
                 dialog.show();
 
-                Button buttonGreen = dialog.findViewById(R.id.buttonEditProjectGreenChoose);
-                Button buttonRed = dialog.findViewById(R.id.buttonEditProjectRedChoose);
-                Button buttonYellow = dialog.findViewById(R.id.buttonEditProjectYellowChoose);
-                Button buttonBlue = dialog.findViewById(R.id.buttonEditProjectBlueChoose);
+                LinearLayout buttonGreen = dialog.findViewById(R.id.buttonEditProjectGreenChoose);
+                LinearLayout buttonRed = dialog.findViewById(R.id.buttonEditProjectRedChoose);
+                LinearLayout buttonYellow = dialog.findViewById(R.id.buttonEditProjectYellowChoose);
+                LinearLayout buttonBlue = dialog.findViewById(R.id.buttonEditProjectBlueChoose);
 
                 buttonGreen.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -335,6 +339,7 @@ public class ProjectSettingsActivity extends AppCompatActivity {
                         Toast.makeText(ProjectSettingsActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         binding.imageColor.setBackgroundTintList(projectColor(color));
+                        currentProject.projectColor = color;
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -346,23 +351,23 @@ public class ProjectSettingsActivity extends AppCompatActivity {
     }
 
     private static @NonNull Map<String, Object> getColorUpdate(String color) {
-        int colorChanged;
+        String colorChanged;
 
         switch (color) {
             case "0": {
-                colorChanged = 0;
+                colorChanged = "0";
                 break;
             }
             case "1": {
-                colorChanged = 1;
+                colorChanged = "1";
                 break;
             }
             case "2": {
-                colorChanged = 2;
+                colorChanged = "2";
                 break;
             }
             default: {
-                colorChanged = 3;
+                colorChanged = "3";
                 break;
             }
         }

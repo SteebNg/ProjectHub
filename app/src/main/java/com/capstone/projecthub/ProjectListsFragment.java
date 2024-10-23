@@ -34,6 +34,7 @@ public class ProjectListsFragment extends Fragment {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
     private final int KEY_GET_ACTIVITY_RESULT = 1;
+    private final int KEY_GET_REFRESH_LISTS = 7;
     private ArrayList<Project> projects;
     private ProjectListsAdapter adapter;
 
@@ -108,7 +109,7 @@ public class ProjectListsFragment extends Fragment {
                 public void onClick(Project project) {
                     Intent intent = new Intent(getContext(), ProjectHomeActivity.class);
                     intent.putExtra("Project Details For ProjectHome", project);
-                    startActivity(intent);
+                    startActivityForResult(intent, KEY_GET_REFRESH_LISTS);
                 }
             });
             return adapter;
@@ -158,6 +159,8 @@ public class ProjectListsFragment extends Fragment {
                     adapter.notifyItemRemoved(position);
                 }
             }
+        } else if (requestCode == KEY_GET_REFRESH_LISTS) {
+            loadProjects();
         }
     }
 }

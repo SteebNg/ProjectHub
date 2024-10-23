@@ -1,5 +1,6 @@
 package com.capstone.projecthub;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
@@ -123,41 +124,49 @@ public class ProjectHomeActivity extends AppCompatActivity {
     }
 
     private void updateProjectColor(String color) {
-        ColorStateList colorStateListForButton, colorStateListForFilter;
+        Context context = ProjectHomeActivity.this;
+
+        ColorStateList colorStateListForButton, colorStateListForFilter, colorStateListForIcon;
+        colorStateListForIcon = ContextCompat.getColorStateList(context, R.color.white);
 
         if (color != null) {
             switch (color) {
                 case "0": {
-                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentGreen);
-                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.mainGreen);
+                    colorStateListForButton = ContextCompat.getColorStateList(context, R.color.transparentGreen);
+                    colorStateListForFilter = ContextCompat.getColorStateList(context, R.color.mainGreen);
                     break;
                 }
                 case "1": {
-                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentRed);
-                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.red);
+                    colorStateListForButton = ContextCompat.getColorStateList(context, R.color.transparentRed);
+                    colorStateListForFilter = ContextCompat.getColorStateList(context, R.color.red);
                     break;
                 }
                 case "2": {
-                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentYellow);
-                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.yellow);
+                    colorStateListForButton = ContextCompat.getColorStateList(context, R.color.transparentYellow);
+                    colorStateListForFilter = ContextCompat.getColorStateList(context, R.color.yellow);
+                    colorStateListForIcon = ContextCompat.getColorStateList(context, R.color.mainDark);
                     break;
                 }
                 default: {
-                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
-                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+                    colorStateListForButton = ContextCompat.getColorStateList(context, R.color.lightBlue);
+                    colorStateListForFilter = ContextCompat.getColorStateList(context, R.color.lightBlue);
                     break;
                 }
             }
         } else {
-            colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
-            colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+            colorStateListForButton = ContextCompat.getColorStateList(context, R.color.lightBlue);
+            colorStateListForFilter = ContextCompat.getColorStateList(context, R.color.lightBlue);
         }
 
         binding.filterImageProject.setBackgroundTintList(colorStateListForFilter);
-        binding.buttonProjectHomeSetting.setBackgroundTintList(colorStateListForButton);
-        binding.buttonTaskProjectHome.setBackgroundTintList(colorStateListForButton);
-        binding.buttonFileProjectHome.setBackgroundTintList(colorStateListForButton);
-        binding.buttonMembersProjectHome.setBackgroundTintList(colorStateListForButton);
+        binding.buttonSettingProjectHomeBackground.setBackgroundTintList(colorStateListForButton);
+        binding.buttonSettingProjectHomeIcon.setImageTintList(colorStateListForIcon);
+        binding.buttonTaskProjectHomeBackground.setBackgroundTintList(colorStateListForButton);
+        binding.buttonTaskProjectHomeIcon.setImageTintList(colorStateListForIcon);
+        binding.buttonFileProjectHomeBackground.setBackgroundTintList(colorStateListForButton);
+        binding.buttonFileProjectHomeIcon.setImageTintList(colorStateListForIcon);
+        binding.buttonMembersProjectHomeBackground.setBackgroundTintList(colorStateListForButton);
+        binding.buttonMembersProjectHomeIcon.setImageTintList(colorStateListForIcon);
     }
 
     private void updateProjectDetails() {
@@ -321,6 +330,14 @@ public class ProjectHomeActivity extends AppCompatActivity {
                 startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE);
             }
         });
+        binding.buttonBackFromProjectHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     private void init() {
@@ -352,5 +369,13 @@ public class ProjectHomeActivity extends AppCompatActivity {
                 updateProjectDetails();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

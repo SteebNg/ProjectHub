@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textEditProjectDateConfirm"
         android:textColor="@color/whiteText"
         android:textSize="17sp"
-        android:backgroundTint="@color/secondDark"
+        android:backgroundTint="@color/hintColor"
         android:text="DD/MM/YYYY"
         android:gravity="center"
         android:fontFamily="@font/alata"/>
