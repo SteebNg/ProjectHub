@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="19dp"
         android:layout_marginStart="19dp"
-        android:tint="@color/white" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/textSettingsTitle"
