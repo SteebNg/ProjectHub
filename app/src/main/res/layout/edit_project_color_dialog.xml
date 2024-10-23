@@ -30,7 +30,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/textEditProjectColorConfirm"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="4dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <View
             android:layout_width="30dp"
@@ -65,7 +67,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectGreenChoose"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="14dp">
+        android:layout_marginTop="4dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <View
             android:layout_width="30dp"
@@ -100,7 +104,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectRedChoose"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="14dp">
+        android:layout_marginTop="4dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <View
             android:layout_width="30dp"
@@ -135,7 +141,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectYellowChoose"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="14dp">
+        android:layout_marginTop="4dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <View
             android:layout_width="30dp"

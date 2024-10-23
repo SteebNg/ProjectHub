@@ -392,4 +392,12 @@ public class ProjectSettingsActivity extends AppCompatActivity {
         currentProject = (Project) getIntent().getSerializableExtra("projectForSettingActivity");
         db = FirebaseFirestore.getInstance();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }
