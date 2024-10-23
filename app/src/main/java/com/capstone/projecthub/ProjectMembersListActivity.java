@@ -181,7 +181,7 @@ public class ProjectMembersListActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProjectMembersListActivity.this
-                                , "An error occured"
+                                , "An error occurred"
                                 , Toast.LENGTH_SHORT).show();
                     }
                 });

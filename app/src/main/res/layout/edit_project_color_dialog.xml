@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/no_internet_dialog_background"
+    android:paddingTop="20dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:paddingBottom="30dp">
+
+    <TextView
+        android:id="@+id/textEditProjectColorConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Project Theme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        android:fontFamily="@font/alata"
+        android:gravity="center"
+        android:textColor="@color/whiteText"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/buttonEditProjectGreenChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textEditProjectColorConfirm"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/mainGreen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Green"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/profile_image_background"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonEditProjectGreenChoose"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonEditProjectGreenChoose"
+        android:foregroundGravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/buttonEditProjectRedChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectGreenChoose"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="14dp">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/red" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Red"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/profile_image_background"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonEditProjectRedChoose"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonEditProjectRedChoose"
+        android:foregroundGravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/buttonEditProjectYellowChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectRedChoose"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="14dp">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yellow"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/profile_image_background"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonEditProjectYellowChoose"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonEditProjectYellowChoose"
+        android:foregroundGravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/buttonEditProjectBlueChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditProjectYellowChoose"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="14dp">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/lightBlue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blue"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/profile_image_background"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonEditProjectBlueChoose"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonEditProjectBlueChoose"
+        android:foregroundGravity="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

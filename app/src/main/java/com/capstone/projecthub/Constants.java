@@ -16,6 +16,7 @@ public class Constants {
     public static String KEY_PROJECT_DUE_DATE = "projectDate";
     public static String KEY_PROJECT_IMAGE = "projectImage";
     public static String KEY_PROJECT_LEADER = "projectLeader";
+    public static String KEY_PROJECT_COLOR = "projectColor";
     public static String KEY_ANNOUNCEMENTS = "announcements";
     public static String KEY_ANNOUNCEMENTS_PROJECT_ID = "projectId";
     public static String KEY_ANNOUNCEMENTS_TITLE = "title";

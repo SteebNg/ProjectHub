@@ -1,12 +1,15 @@
 package com.capstone.projecthub.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.capstone.projecthub.Model.Project;
@@ -42,6 +45,27 @@ public class ProjectListsAdapter extends RecyclerView.Adapter<ProjectListsAdapte
         String dateDisplay = "Due: " + projects.get(position).dateString();
         holder.projectDate.setText(dateDisplay);
 
+        ColorStateList color;
+        switch (projects.get(position).projectColor) {
+            case "0": {
+                color = ContextCompat.getColorStateList(context, R.color.mainGreen);
+                break;
+            }
+            case "1": {
+                color = ContextCompat.getColorStateList(context, R.color.red);
+                break;
+            }
+            case "2": {
+                color = ContextCompat.getColorStateList(context, R.color.yellow);
+                break;
+            }
+            default: {
+                color = ContextCompat.getColorStateList(context, R.color.lightBlue);
+                break;
+            }
+        }
+        holder.bulletProjects.setBackgroundTintList(color);
+
         holder.itemView.setOnClickListener(v -> onItemClickListener.onClick(projects.get(position)));
     }
 
@@ -52,12 +76,14 @@ public class ProjectListsAdapter extends RecyclerView.Adapter<ProjectListsAdapte
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView projectName, projectDesc, projectDate;
+        View bulletProjects;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             projectName = itemView.findViewById(R.id.textProjectListsName);
             projectDesc = itemView.findViewById(R.id.textProjectDescLists);
             projectDate = itemView.findViewById(R.id.textDueDateLists);
+            bulletProjects = itemView.findViewById(R.id.viewBulletProjectList);
         }
     }
 

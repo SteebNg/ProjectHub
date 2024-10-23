@@ -18,4 +18,6 @@
     <color name="popUpColor">#192134</color>
     <color name="popUpColor2">#242424</color>
     <color name="transparentGreen">#B33BEA87</color>
+    <color name="lightBlue">#add8e6</color>
+    <color name="transparentYellow">#B3FFEB3B</color>
 </resources>

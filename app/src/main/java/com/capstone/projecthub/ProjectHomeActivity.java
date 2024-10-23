@@ -1,6 +1,7 @@
 package com.capstone.projecthub;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +49,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
     private PreferenceManager preferenceManager;
     private final int KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT = 2;
     private final int KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE = 3;
+    private final int KEY_ACTIVITY_RESULT_FOR_SETTINGS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,44 @@ public class ProjectHomeActivity extends AppCompatActivity {
         return announcementListAdapter;
     }
 
+    private void updateProjectColor(String color) {
+        ColorStateList colorStateListForButton, colorStateListForFilter;
+
+        if (color != null) {
+            switch (color) {
+                case "0": {
+                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentGreen);
+                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.mainGreen);
+                    break;
+                }
+                case "1": {
+                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentRed);
+                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.red);
+                    break;
+                }
+                case "2": {
+                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.transparentYellow);
+                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.yellow);
+                    break;
+                }
+                default: {
+                    colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+                    colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+                    break;
+                }
+            }
+        } else {
+            colorStateListForButton = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+            colorStateListForFilter = ContextCompat.getColorStateList(ProjectHomeActivity.this, R.color.lightBlue);
+        }
+
+        binding.filterImageProject.setBackgroundTintList(colorStateListForFilter);
+        binding.buttonProjectHomeSetting.setBackgroundTintList(colorStateListForButton);
+        binding.buttonTaskProjectHome.setBackgroundTintList(colorStateListForButton);
+        binding.buttonFileProjectHome.setBackgroundTintList(colorStateListForButton);
+        binding.buttonMembersProjectHome.setBackgroundTintList(colorStateListForButton);
+    }
+
     private void updateProjectDetails() {
         db.collection(Constants.KEY_PROJECT_LISTS)
                 .document(currentProject.projectId)
@@ -143,6 +183,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
                                 checkIfLeader(document.getString(Constants.KEY_PROJECT_LEADER));
                                 updateProfileImage();
                                 updateProjectImage(document.getString(Constants.KEY_PROJECT_IMAGE));
+                                updateProjectColor(document.getString(Constants.KEY_PROJECT_COLOR));
                             }
                         }
                     }
@@ -217,13 +258,24 @@ public class ProjectHomeActivity extends AppCompatActivity {
     private void checkIfLeader(String leaderId) {
         if (leaderId != null && !leaderId.equals(preferenceManager.getString(Constants.KEY_USER_ID))) {
             binding.textMakeAnnounement.setText("Only the leader can make an announcement");
+            binding.buttonProjectHomeSetting.setVisibility(View.GONE);
         } else {
+            binding.buttonProjectHomeSetting.setVisibility(View.VISIBLE);
             binding.buttonAddAnnouncementProjectHome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ProjectHomeActivity.this, AddAnnouncementActivity.class);
                     intent.putExtra("ProjectIdForAddAnnouncement", currentProject);
                     startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT);
+                }
+            });
+            binding.buttonProjectHomeSetting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //(TODO) Pass project to the activity
+                    Intent intent = new Intent(ProjectHomeActivity.this, ProjectSettingsActivity.class);
+                    intent.putExtra("projectForSettingActivity", currentProject);
+                    startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_SETTINGS);
                 }
             });
         }
@@ -257,8 +309,6 @@ public class ProjectHomeActivity extends AppCompatActivity {
         binding.buttonFileProjectHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Direct to file activity
-                //Pass project details
                 Intent intent = new Intent(ProjectHomeActivity.this, FileSharingActivity.class);
                 intent.putExtra("passedProjectToFileShare", currentProject);
                 startActivity(intent);
@@ -286,17 +336,21 @@ public class ProjectHomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == KEY_ACTIVITY_RESULT_FOR_REFRESH_ANNOUNCEMENT) {
-            if (resultCode == ProjectHomeActivity.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 updateAnnouncementList();
             }
         } else if (requestCode == KEY_ACTIVITY_RESULT_FOR_CHECK_IF_LEAVE) {
-            if (resultCode == ProjectHomeActivity.RESULT_OK && data != null) {
+            if (resultCode == RESULT_OK && data != null) {
                 if (data.getStringExtra("quit").equals("true")) {
                     Intent intent = new Intent();
                     intent.putExtra("quitConfirm", currentProject);
                     setResult(RESULT_OK, intent);
                     finish();
                 }
+            }
+        } else if (requestCode == KEY_ACTIVITY_RESULT_FOR_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                updateProjectDetails();
             }
         }
     }

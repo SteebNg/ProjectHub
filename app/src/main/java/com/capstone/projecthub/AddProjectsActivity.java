@@ -67,10 +67,8 @@ public class AddProjectsActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         try {
-            Date date = dateFormat.parse(binding.editTextAddProjectDueDate.getText().toString());
-
             //Success
-            return date;
+            return dateFormat.parse(binding.editTextAddProjectDueDate.getText().toString());
         } catch (ParseException e) {
             Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
             return null;
@@ -98,6 +96,8 @@ public class AddProjectsActivity extends AppCompatActivity {
                     project.put(Constants.KEY_PROJECT_MEMBERS_ID, Arrays.asList(preferenceManager.getString(Constants.KEY_USER_ID)));
                     project.put(Constants.KEY_PROJECT_IMAGE, String.valueOf(random.nextInt(6)));
                     project.put(Constants.KEY_PROJECT_LEADER, preferenceManager.getString(Constants.KEY_USER_ID));
+                    project.put(Constants.KEY_PROJECT_COLOR, String.valueOf(random.nextInt(4)));
+                    //yellow, red, green, blue
 
                     db.collection(Constants.KEY_PROJECT_LISTS)
                             .add(project)

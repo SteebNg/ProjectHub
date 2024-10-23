@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Project implements Serializable {
-    public String projectName, projectDescription, projectId, projectLeaderId, projectImage;
+    public String projectName, projectDescription, projectId, projectLeaderId, projectImage, projectColor;
     public Date dueDate;
     public String[] memberList;
 

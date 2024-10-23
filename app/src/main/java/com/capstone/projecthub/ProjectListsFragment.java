@@ -79,6 +79,7 @@ public class ProjectListsFragment extends Fragment {
                                 project.projectImage = document.getString(Constants.KEY_PROJECT_IMAGE);
                                 project.projectLeaderId = document.getString(Constants.KEY_PROJECT_LEADER);
                                 project.memberList = ((List<String>) document.get(Constants.KEY_PROJECT_MEMBERS_ID)).toArray(new String[0]);
+                                project.projectColor = document.getString(Constants.KEY_PROJECT_COLOR);
 
                                 projects.add(project);
                             }
@@ -99,19 +100,19 @@ public class ProjectListsFragment extends Fragment {
                 });
     }
 
-private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
-        ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
+    private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
+            ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
 
-        adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(Project project) {
-                Intent intent = new Intent(getContext(), ProjectHomeActivity.class);
-                intent.putExtra("Project Details For ProjectHome", project);
-                startActivity(intent);
-            }
-        });
-        return adapter;
-    }
+            adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(Project project) {
+                    Intent intent = new Intent(getContext(), ProjectHomeActivity.class);
+                    intent.putExtra("Project Details For ProjectHome", project);
+                    startActivity(intent);
+                }
+            });
+            return adapter;
+        }
 
     private void isRecyclerLoading(boolean isLoading) {
         if (isLoading) {

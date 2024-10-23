@@ -57,7 +57,7 @@ public class FileSharingActivity extends AppCompatActivity {
     private ArrayList<File> files;
     private FileSharingListsAdapter adapter;
     private String projectId;
-    private int KEY_PICK_FILES_TO_UPLOAD = 5;
+    private final int KEY_PICK_FILES_TO_UPLOAD = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
