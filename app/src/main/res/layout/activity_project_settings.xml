@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProjectSettingsActivity"
+    android:background="@color/mainDark">
+
+    <ImageView
+        android:id="@+id/buttonBackFromProjectSettings"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="19dp"
+        android:layout_marginStart="19dp"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/textSettingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintTop_toTopOf="@+id/buttonBackFromProjectSettings"
+        app:layout_constraintStart_toEndOf="@+id/buttonBackFromProjectSettings"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromProjectSettings"
+        android:fontFamily="@font/alata"
+        android:textSize="20sp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/whiteText" />
+
+    <TextView
+        android:id="@+id/textSettingsCustomizationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customization"
+        app:layout_constraintTop_toBottomOf="@+id/textSettingsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/grey" />
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSettingsCustomizationTitle"
+        android:id="@+id/buttonEditNameProject"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_groups_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <TextView
+            android:id="@+id/textEditProjectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Name"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditNameProject"
+        android:id="@+id/buttonEditDescProject"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/aa"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <TextView
+            android:id="@+id/textEditProjectDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Desc"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"
+            android:maxWidth="300dp"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditDescProject"
+        android:id="@+id/buttonEditDateProject"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_calendar_month_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <TextView
+            android:id="@+id/textEditProjectDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Due Date"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditDateProject"
+        android:id="@+id/buttonColorProject"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/imageColor"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/mainGreen"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theme"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

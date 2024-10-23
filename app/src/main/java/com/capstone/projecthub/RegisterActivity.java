@@ -93,6 +93,22 @@ public class RegisterActivity extends AppCompatActivity {
                 binding.editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
+        binding.imageEyeHideConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imageEyeHide.setVisibility(View.GONE);
+                binding.imageEyeShow.setVisibility(View.VISIBLE);
+                binding.editTextConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+        });
+        binding.imageEyeShowConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.imageEyeHide.setVisibility(View.VISIBLE);
+                binding.imageEyeShow.setVisibility(View.GONE);
+                binding.editTextConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
     }
 
     private void checkEmailExist() {

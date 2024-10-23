@@ -21,6 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +33,10 @@ public class ProjectListsFragment extends Fragment {
     private FragmentProjectListsBinding binding;
     private PreferenceManager preferenceManager;
     private FirebaseFirestore db;
-    private int KEY_GET_ACTIVITY_RESULT = 1;
+    private final int KEY_GET_ACTIVITY_RESULT = 1;
+    private final int KEY_GET_REFRESH_LISTS = 7;
+    private ArrayList<Project> projects;
+    private ProjectListsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,8 +67,8 @@ public class ProjectListsFragment extends Fragment {
                         if (task.getResult() != null && !task.getResult().getDocuments().isEmpty()) {
                             isRecyclerLoading(false);
 
-                            ArrayList<Project> projects = new ArrayList<>();
-                            ProjectListsAdapter adapter = getProjectListsAdapter(projects);
+                            projects = new ArrayList<>();
+                            adapter = getProjectListsAdapter(projects);
                             binding.recyclerProjectList.setAdapter(adapter);
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -72,6 +76,11 @@ public class ProjectListsFragment extends Fragment {
                                 project.projectName = document.getString(Constants.KEY_PROJECT_NAME);
                                 project.projectDescription = document.getString(Constants.KEY_PROJECT_DESC);
                                 project.dueDate = document.getDate(Constants.KEY_PROJECT_DUE_DATE);
+                                project.projectId = document.getId();
+                                project.projectImage = document.getString(Constants.KEY_PROJECT_IMAGE);
+                                project.projectLeaderId = document.getString(Constants.KEY_PROJECT_LEADER);
+                                project.memberList = ((List<String>) document.get(Constants.KEY_PROJECT_MEMBERS_ID)).toArray(new String[0]);
+                                project.projectColor = document.getString(Constants.KEY_PROJECT_COLOR);
 
                                 projects.add(project);
                             }
@@ -81,6 +90,7 @@ public class ProjectListsFragment extends Fragment {
                         } else {
                             binding.textNoProjects.setVisibility(View.VISIBLE);
                             isRecyclerLoading(false);
+                            binding.viewTimelineProject.setVisibility(View.GONE);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -92,16 +102,18 @@ public class ProjectListsFragment extends Fragment {
     }
 
     private @NonNull ProjectListsAdapter getProjectListsAdapter(ArrayList<Project> projects) {
-        ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
+            ProjectListsAdapter adapter = new ProjectListsAdapter(getContext(), projects);
 
-        adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(Project project) {
-                //(TODO) Direct user to the correct activity
-            }
-        });
-        return adapter;
-    }
+            adapter.setOnItemClickListener(new ProjectListsAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(Project project) {
+                    Intent intent = new Intent(getContext(), ProjectHomeActivity.class);
+                    intent.putExtra("Project Details For ProjectHome", project);
+                    startActivityForResult(intent, KEY_GET_REFRESH_LISTS);
+                }
+            });
+            return adapter;
+        }
 
     private void isRecyclerLoading(boolean isLoading) {
         if (isLoading) {
@@ -137,9 +149,18 @@ public class ProjectListsFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == KEY_GET_ACTIVITY_RESULT) {
             if (resultCode == HomeActivity.RESULT_OK) {
-                String documentIdOfCreatedProject = data.getStringExtra("result");
-                //(TODO) Pass the document into the new Activity
+                loadProjects();
+                if (data != null && data.getSerializableExtra("quitConfirm") != null) {
+                    Project project = (Project) data.getSerializableExtra("quitConfirm");
+                    int position = projects.indexOf(project);
+
+                    projects.remove(project);
+                    projects.sort(Comparator.comparing(obj -> obj.dueDate));
+                    adapter.notifyItemRemoved(position);
+                }
             }
+        } else if (requestCode == KEY_GET_REFRESH_LISTS) {
+            loadProjects();
         }
     }
 }

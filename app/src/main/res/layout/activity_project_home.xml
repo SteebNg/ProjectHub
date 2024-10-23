@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProjectHomeActivity"
+    android:background="@color/mainDark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/filterImageProject"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/mainGreen"
+                android:alpha="0.3"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <ImageView
+                android:id="@+id/buttonBackFromProjectHome"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toTopOf="@id/filterImageProject"
+                app:layout_constraintStart_toStartOf="@+id/filterImageProject"
+                android:src="@drawable/baseline_arrow_back_ios_24"
+                app:tint="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageProjectHome"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/discuss1"
+                app:layout_constraintTop_toTopOf="@+id/filterImageProject"
+                app:layout_constraintEnd_toEndOf="@+id/filterImageProject"
+                app:layout_constraintBottom_toBottomOf="@+id/filterImageProject"
+                app:layout_constraintStart_toStartOf="@+id/filterImageProject"
+                android:alpha="0.2"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="20dp"/>
+
+            <TextView
+                android:id="@+id/textProjectNameHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project Name"
+                app:layout_constraintStart_toStartOf="@+id/imageProjectHome"
+                app:layout_constraintBottom_toTopOf="@+id/textProjectLeaderHome"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/whiteText"
+                android:textSize="28sp"
+                android:fontFamily="@font/alata" />
+
+            <TextView
+                android:id="@+id/textProjectLeaderHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project Leader"
+                app:layout_constraintStart_toStartOf="@+id/imageProjectHome"
+                app:layout_constraintBottom_toBottomOf="@+id/imageProjectHome"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/hintColor"
+                android:textSize="14sp"
+                android:fontFamily="@font/alata"
+                android:elevation="4dp"/>
+
+            <TextView
+                android:id="@+id/textProjectDueDateHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DD/MM/YYYY"
+                app:layout_constraintEnd_toEndOf="@+id/imageProjectHome"
+                app:layout_constraintBottom_toBottomOf="@+id/imageProjectHome"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/hintColor"
+                android:textSize="12sp"
+                android:fontFamily="@font/alata"
+                android:elevation="4dp"/>
+
+            <LinearLayout
+                android:id="@+id/listOfActionsProject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/imageProjectHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/buttonProjectHomeSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="40dp"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center">
+
+                        <View
+                            android:id="@+id/buttonSettingProjectHomeBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/logo_background"
+                            android:backgroundTint="@color/transparentGreen"
+                            android:layout_gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/buttonSettingProjectHomeIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/baseline_settings_24"
+                            android:padding="10dp"
+                            app:tint="@color/white" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Setting"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/alata"
+                        android:textColor="@color/hintColor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="40dp">
+
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/buttonTaskProjectHome"
+                        android:layout_gravity="center">
+
+                        <View
+                            android:id="@+id/buttonTaskProjectHomeBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/logo_background"
+                            android:backgroundTint="@color/transparentGreen"
+                            android:layout_gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/buttonTaskProjectHomeIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/contract"
+                            android:padding="10dp"
+                            app:tint="@color/white" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tasks"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/alata"
+                        android:textColor="@color/hintColor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="40dp">
+
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/buttonFileProjectHome"
+                        android:layout_gravity="center">
+
+                        <View
+                            android:id="@+id/buttonFileProjectHomeBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/logo_background"
+                            android:backgroundTint="@color/transparentGreen"
+                            android:layout_gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/buttonFileProjectHomeIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/baseline_folder_24"
+                            android:padding="10dp"
+                            app:tint="@color/white" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Files"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/alata"
+                        android:textColor="@color/hintColor"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/buttonMembersProjectHome"
+                        android:layout_gravity="center">
+
+                        <View
+                            android:id="@+id/buttonMembersProjectHomeBackground"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/logo_background"
+                            android:backgroundTint="@color/transparentGreen"
+                            android:layout_gravity="center"/>
+
+                        <ImageView
+                            android:id="@+id/buttonMembersProjectHomeIcon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/baseline_groups_24"
+                            android:padding="10dp"
+                            app:tint="@color/white" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Members"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/alata"
+                        android:textColor="@color/hintColor"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textAnnouncementProjectHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Announcement"
+                app:layout_constraintTop_toBottomOf="@+id/listOfActionsProject"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="20sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="19dp"
+                android:textColor="@color/whiteText"
+                android:fontFamily="@font/alata"/>
+
+            <LinearLayout
+                android:id="@+id/buttonAddAnnouncementProjectHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textAnnouncementProjectHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/rounded_rectangle"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"
+                android:backgroundTint="@color/secondDark"
+                android:orientation="horizontal"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:elevation="4dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageProfileProjectHomeAnnouncement"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/profile_image_background"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/nointernetdino"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="100dp"
+                    android:backgroundTint="@color/hintColor"/> <!--TODO: Make sure to remove this -->
+
+                <TextView
+                    android:id="@+id/textMakeAnnounement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Announce something to your team......"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="14dp"
+                    android:textColor="@color/hintColor"
+                    android:fontFamily="@font/alata"
+                    android:paddingBottom="4dp"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerAnnouncementList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddAnnouncementProjectHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <ImageView
+                android:id="@+id/imageNoAnnouncementHome"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddAnnouncementProjectHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/motivation" />
+
+            <TextView
+                android:id="@+id/textNoAnnouncementHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Announcement found"
+                app:layout_constraintTop_toBottomOf="@+id/imageNoAnnouncementHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/alata"
+                android:layout_marginTop="10dp" />
+
+            <ImageView
+                android:id="@+id/imageErrorAnnouncementHome"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddAnnouncementProjectHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/sad"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/textErrorAnnouncementHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Error when getting announcement"
+                app:layout_constraintTop_toBottomOf="@+id/imageNoAnnouncementHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/alata"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

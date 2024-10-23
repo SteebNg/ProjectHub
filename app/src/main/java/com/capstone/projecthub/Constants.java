@@ -14,4 +14,15 @@ public class Constants {
     public static String KEY_PROJECT_NAME = "projectName";
     public static String KEY_PROJECT_DESC = "projectDesc";
     public static String KEY_PROJECT_DUE_DATE = "projectDate";
+    public static String KEY_PROJECT_IMAGE = "projectImage";
+    public static String KEY_PROJECT_LEADER = "projectLeader";
+    public static String KEY_PROJECT_COLOR = "projectColor";
+    public static String KEY_ANNOUNCEMENTS = "announcements";
+    public static String KEY_ANNOUNCEMENTS_PROJECT_ID = "projectId";
+    public static String KEY_ANNOUNCEMENTS_TITLE = "title";
+    public static String KEY_ANNOUNCEMENTS_DATE = "date";
+    public static String KEY_ANNOUNCEMENTS_BODY = "body";
+    public static String KEY_ANNOUNCEMENTS_ANNOUNCER_ID = "announcerId";
+    public static String KEY_ANNOUNCEMENTS_ANNOUNCER_NAME = "announcerName";
+    public static String KEY_PENDING_INVITES = "pendingInvites";
 }

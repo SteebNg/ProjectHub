@@ -108,7 +108,9 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(getContext()).load(uri).into(binding.imageProfile);
+                        if (uri != null) {
+                            Glide.with(getContext()).load(uri).into(binding.imageProfile);
+                        }
                     }
                 });
     }

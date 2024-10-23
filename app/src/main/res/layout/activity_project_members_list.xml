@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProjectMembersListActivity"
+    android:background="@color/mainDark">
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/buttonAddMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/baseline_add_24"
+        app:iconTint="@color/mainDark"
+        android:backgroundTint="@color/mainGreen"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+
+    <ImageView
+        android:id="@+id/buttonBackFromMembersList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/actionBarMembersList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Members List"
+        android:textColor="@color/whiteText"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/alata"
+        android:layout_marginTop="19dp"
+        android:paddingBottom="8dp"/>
+
+    <ImageView
+        android:id="@+id/buttonRefreshMembersList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/baseline_refresh_24"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="20dp"
+        app:tint="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progressBarMembersList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+
+    <ScrollView
+        android:id="@+id/viewRecyclerMembersList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/actionBarMembersList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProjectMembersList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"/>
+
+            <View
+                android:id="@+id/buttonLeaveProject"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerProjectMembersList"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/popUpColor2"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Leave this project"
+                app:layout_constraintTop_toTopOf="@+id/buttonLeaveProject"
+                app:layout_constraintStart_toStartOf="@+id/buttonLeaveProject"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonLeaveProject"
+                android:textColor="@color/red"
+                android:layout_marginStart="19dp"
+                android:fontFamily="@font/alata"
+                android:gravity="center"
+                android:paddingBottom="2dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

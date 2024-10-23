@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 public class AddProjectsActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class AddProjectsActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private FirebaseFirestore db;
     private PreferenceManager preferenceManager;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +60,15 @@ public class AddProjectsActivity extends AppCompatActivity {
         binding.editTextAddProjectDueDate.setInputType(InputType.TYPE_NULL);
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(AddProjectsActivity.this);
+        random = new Random();
     }
 
     private Date getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         try {
-            Date date = dateFormat.parse(binding.editTextAddProjectDueDate.getText().toString());
-
             //Success
-            return date;
+            return dateFormat.parse(binding.editTextAddProjectDueDate.getText().toString());
         } catch (ParseException e) {
             Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
             return null;
@@ -93,15 +94,17 @@ public class AddProjectsActivity extends AppCompatActivity {
                     project.put(Constants.KEY_PROJECT_DUE_DATE, dateSelected);
                     //add user to the members list
                     project.put(Constants.KEY_PROJECT_MEMBERS_ID, Arrays.asList(preferenceManager.getString(Constants.KEY_USER_ID)));
+                    project.put(Constants.KEY_PROJECT_IMAGE, String.valueOf(random.nextInt(6)));
+                    project.put(Constants.KEY_PROJECT_LEADER, preferenceManager.getString(Constants.KEY_USER_ID));
+                    project.put(Constants.KEY_PROJECT_COLOR, String.valueOf(random.nextInt(4)));
+                    //yellow, red, green, blue
 
                     db.collection(Constants.KEY_PROJECT_LISTS)
                             .add(project)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    //(TODO) Direct to activity
                                     Intent returnIntent = new Intent();
-                                    returnIntent.putExtra("result", documentReference.getId());
                                     setResult(RESULT_OK, returnIntent);
                                     finish();
                                 }
