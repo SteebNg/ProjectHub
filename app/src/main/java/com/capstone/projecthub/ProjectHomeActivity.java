@@ -272,7 +272,6 @@ public class ProjectHomeActivity extends AppCompatActivity {
             binding.buttonProjectHomeSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //(TODO) Pass project to the activity
                     Intent intent = new Intent(ProjectHomeActivity.this, ProjectSettingsActivity.class);
                     intent.putExtra("projectForSettingActivity", currentProject);
                     startActivityForResult(intent, KEY_ACTIVITY_RESULT_FOR_SETTINGS);
