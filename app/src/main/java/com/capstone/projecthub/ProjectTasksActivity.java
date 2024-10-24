@@ -170,6 +170,8 @@ public class ProjectTasksActivity extends AppCompatActivity {
         return adapter;
     }
 
+
+
     private void isRecyclerLoading(boolean isLoading) {
         if (isLoading) {
             binding.recyclerProjectTasksList.setVisibility(View.GONE);
