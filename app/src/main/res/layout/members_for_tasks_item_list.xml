@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/mainDark"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfileProjectTaskMemberList"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:riv_corner_radius="100dp"
+        android:src="@drawable/nointernetdino"
+        android:scaleType="centerCrop"
+        android:background="@drawable/profile_image_background" />
+
+    <TextView
+        android:id="@+id/textProfileNameProjectNameList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="@color/whiteText"
+        android:fontFamily="@font/alata"
+        app:layout_constraintStart_toEndOf="@+id/imageProfileProjectTaskMemberList"
+        app:layout_constraintTop_toTopOf="@+id/imageProfileProjectTaskMemberList"
+        android:layout_marginStart="12dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textProfileEmailProjectMemberList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/hintColor"
+        android:fontFamily="@font/alata"
+        app:layout_constraintStart_toEndOf="@+id/imageProfileProjectTaskMemberList"
+        app:layout_constraintTop_toBottomOf="@+id/textProfileNameProjectNameList"
+        android:layout_marginStart="12dp"
+        android:textSize="15sp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

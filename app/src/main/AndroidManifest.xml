@@ -20,6 +20,12 @@
         android:theme="@style/Theme.ProjectHub"
         tools:targetApi="31">
         <activity
+            android:name=".AssignTasksDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AssignMembersToTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProjectTasksActivity"
             android:exported="false" />
         <activity
