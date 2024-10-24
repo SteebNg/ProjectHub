@@ -202,7 +202,6 @@ public class ProjectTasksActivity extends AppCompatActivity {
         binding.buttonProjectAssignTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Pass task to that activity
                 Intent intent = new Intent(ProjectTasksActivity.this, AssignMembersToTaskActivity.class);
                 intent.putExtra("projectToAssignMembers", currentProject);
                 startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_LIST);
@@ -215,7 +214,6 @@ public class ProjectTasksActivity extends AppCompatActivity {
             }
         });
 
-        //(TODO) Do all the db queries
         binding.buttonProjectTasksAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
