@@ -3,6 +3,7 @@ package com.capstone.projecthub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -227,6 +228,30 @@ public class AssignMembersToTaskActivity extends AppCompatActivity {
                 }
             }
         });
+        binding.searchBarTasksAssignMembers.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filterList(String query) {
+        ArrayList<User> filteredUsers = new ArrayList<>();
+
+        for (User user : projectMembers) {
+            if (user.email.toLowerCase().contains(query.toLowerCase())
+                    || user.username.toLowerCase().contains(query.toLowerCase())) {
+                filteredUsers.add(user);
+            }
+        }
+        membersListAdapter.setFilteredUserList(filteredUsers);
     }
 
     private void init() {
