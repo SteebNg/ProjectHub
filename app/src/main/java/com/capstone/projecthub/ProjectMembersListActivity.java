@@ -126,7 +126,6 @@ public class ProjectMembersListActivity extends AppCompatActivity {
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //(TODO) Remove user from the project
                         removeUserFromDatabase();
 
                         dialog.dismiss();

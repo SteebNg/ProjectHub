@@ -183,7 +183,6 @@ public class AddMembersActivity extends AppCompatActivity {
         binding.buttonAddMembersToProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Add the members into DB
                 Map<String, Object> pendingInvites = new HashMap<>();
                 pendingInvites.put(Constants.KEY_PENDING_INVITES, FieldValue.arrayUnion(addedUsers));
 

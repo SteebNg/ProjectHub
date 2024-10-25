@@ -69,7 +69,6 @@ public class ProjectHomeActivity extends AppCompatActivity {
     }
 
     private void updateAnnouncementList() {
-        //(TODO) Update announcement
         db.collection(Constants.KEY_ANNOUNCEMENTS)
                 .whereEqualTo(Constants.KEY_ANNOUNCEMENTS_PROJECT_ID, currentProject.projectId)
                 .get()
