@@ -143,6 +143,45 @@ public class FileSharingActivity extends AppCompatActivity {
         });
     }
 
+    private void deleteFileFromDb(File file) {
+        Dialog dialog = new Dialog(FileSharingActivity.this);
+        dialog.setContentView(R.layout.confirm_delete_file_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Button buttonCancel = dialog.findViewById(R.id.buttonCancelDeleteFile);
+        Button buttonConfirm = dialog.findViewById(R.id.buttonConfirmDeleteFile);
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storageReference.child(projectId + "/" + file.fileName).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(FileSharingActivity.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                                loadFileList();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(FileSharingActivity.this, "No such file exist", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                dialog.dismiss();
+            }
+        });
+    }
+
     private void loadFileList() {
         isRecyclerLoading(true);
 
@@ -153,11 +192,16 @@ public class FileSharingActivity extends AppCompatActivity {
                         files = new ArrayList<>();
                         adapter = new FileSharingListsAdapter(FileSharingActivity.this, files);
 
-                        adapter.setOnItemClickListener(new FileSharingListsAdapter.OnItemClickListener() {
+                        adapter.setOnItemClickListenerForDownload(new FileSharingListsAdapter.OnItemClickListener() {
                             @Override
                             public void onClick(File file) {
-                                //(TODO) Download the files
                                 checkForStoragePermissionThenDownloadLocally(file);
+                            }
+                        });
+                        adapter.setOnItemClickListenerForDelete(new FileSharingListsAdapter.OnItemClickListener() {
+                            @Override
+                            public void onClick(File file) {
+                                deleteFileFromDb(file);
                             }
                         });
                         binding.recyclerFiles.setAdapter(adapter);

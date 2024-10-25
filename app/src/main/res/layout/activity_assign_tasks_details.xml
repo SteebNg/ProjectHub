@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AssignTasksDetailsActivity"
+    android:background="@color/mainDark">
+
+    <ImageView
+        android:id="@+id/buttonBackFromTasksDetails"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/actionBarTasksAssignTasksDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assigning Task"
+        android:textColor="@color/whiteText"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@id/buttonBackFromTasksDetails"
+        app:layout_constraintStart_toEndOf="@+id/buttonBackFromTasksDetails"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromTasksDetails"
+        android:fontFamily="@font/alata"
+        android:paddingBottom="6dp"
+        android:layout_marginStart="4dp"/>
+
+    <TextView
+        android:id="@+id/buttonTasksNextAssignTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:textColor="@color/hintColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonBackFromTasksDetails"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromTasksDetails"
+        android:layout_marginEnd="19dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/alata" />
+
+    <EditText
+        android:id="@+id/editTextTasksNameAssigning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Task Name"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBackFromTasksDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDateTasksDetails"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/whiteText"
+        android:textSize="17sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/alata"
+        android:textColorHint="@color/hintColor"
+        android:backgroundTint="@android:color/transparent"/>
+
+    <View
+        android:id="@+id/viewDividerInTaskDetails"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/secondDark"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTasksNameAssigning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
+    <ImageView
+        android:id="@+id/buttonCalenderForTaskDetails"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="@+id/editTextTasksNameAssigning"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextTasksNameAssigning"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/baseline_calendar_month_24"
+        android:layout_marginEnd="20dp"
+        app:tint="@color/mainGreen" />
+
+    <EditText
+        android:id="@+id/buttonDateTasksDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Date"
+        android:textColor="@color/hintColor"
+        app:layout_constraintEnd_toStartOf="@+id/buttonCalenderForTaskDetails"
+        app:layout_constraintTop_toTopOf="@+id/buttonCalenderForTaskDetails"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCalenderForTaskDetails"
+        android:layout_marginEnd="7dp"
+        android:textSize="14sp"
+        android:backgroundTint="@android:color/transparent"/>
+
+    <EditText
+        android:id="@+id/editTextTasksDescAssigning"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewDividerInTaskDetails"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="Task Description"
+        android:textColorHint="@color/hintColor"
+        android:textSize="14sp"
+        android:fontFamily="@font/alata"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

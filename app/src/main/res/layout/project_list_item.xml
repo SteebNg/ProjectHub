@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/mainDark"> <!--TODO: Remember to remove this attribute -->
+    android:background="@color/mainDark">
 
     <View
         android:id="@+id/viewListLine"

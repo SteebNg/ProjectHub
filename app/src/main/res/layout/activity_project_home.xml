@@ -43,7 +43,7 @@
                 android:src="@drawable/baseline_arrow_back_ios_24"
                 app:tint="@color/white"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="18dp"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageProjectHome"
@@ -325,7 +325,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="19dp"
                 android:layout_marginEnd="19dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:overScrollMode="never"/>
 
             <ImageView
                 android:id="@+id/imageNoAnnouncementHome"

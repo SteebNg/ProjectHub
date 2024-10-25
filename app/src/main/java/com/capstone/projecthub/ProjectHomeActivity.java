@@ -40,8 +40,6 @@ import java.util.Comparator;
 
 public class ProjectHomeActivity extends AppCompatActivity {
 
-    //(TODO) find and extract the url
-
     private ActivityProjectHomeBinding binding;
     private FirebaseFirestore db;
     private Project currentProject;
@@ -71,7 +69,6 @@ public class ProjectHomeActivity extends AppCompatActivity {
     }
 
     private void updateAnnouncementList() {
-        //(TODO) Update announcement
         db.collection(Constants.KEY_ANNOUNCEMENTS)
                 .whereEqualTo(Constants.KEY_ANNOUNCEMENTS_PROJECT_ID, currentProject.projectId)
                 .get()
@@ -311,7 +308,9 @@ public class ProjectHomeActivity extends AppCompatActivity {
         binding.buttonTaskProjectHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Direct to tasks activity
+                Intent intent = new Intent(ProjectHomeActivity.this, ProjectTasksActivity.class);
+                intent.putExtra("projectForTasks", currentProject);
+                startActivity(intent);
             }
         });
         binding.buttonFileProjectHome.setOnClickListener(new View.OnClickListener() {

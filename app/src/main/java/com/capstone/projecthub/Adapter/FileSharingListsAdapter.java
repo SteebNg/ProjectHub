@@ -1,7 +1,6 @@
 package com.capstone.projecthub.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 public class FileSharingListsAdapter extends RecyclerView.Adapter<FileSharingListsAdapter.ViewHolder>{
     private Context context;
     private ArrayList<File> files;
-    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListenerForDownload, onItemClickListenerForDelete;
 
     public FileSharingListsAdapter(Context context, ArrayList<File> files) {
         this.context = context;
@@ -39,7 +38,8 @@ public class FileSharingListsAdapter extends RecyclerView.Adapter<FileSharingLis
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.fileName.setText(files.get(position).fileName);
-        holder.downloadFile.setOnClickListener(v -> onItemClickListener.onClick(files.get(position)));
+        holder.downloadFile.setOnClickListener(v -> onItemClickListenerForDownload.onClick(files.get(position)));
+        holder.deleteFile.setOnClickListener(v -> onItemClickListenerForDelete.onClick(files.get(position)));
     }
 
     @Override
@@ -49,18 +49,23 @@ public class FileSharingListsAdapter extends RecyclerView.Adapter<FileSharingLis
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView fileName;
-        ImageView fileImage, downloadFile;
+        ImageView fileImage, downloadFile, deleteFile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             fileName = itemView.findViewById(R.id.textFileName);
             fileImage = itemView.findViewById(R.id.imageFileSharing);
             downloadFile = itemView.findViewById(R.id.buttonDownloadFile);
+            deleteFile = itemView.findViewById(R.id.buttonDeleteFile);
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnItemClickListenerForDownload(OnItemClickListener onItemClickListener) {
+        onItemClickListenerForDownload = onItemClickListener;
+    }
+
+    public void setOnItemClickListenerForDelete(OnItemClickListener onItemClickListener) {
+        onItemClickListenerForDelete = onItemClickListener;
     }
 
     public interface OnItemClickListener {
