@@ -20,6 +20,9 @@
         android:theme="@style/Theme.ProjectHub"
         tools:targetApi="31">
         <activity
+            android:name=".EditTaskDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".TaskDetailsActivity"
             android:exported="false" />
         <activity

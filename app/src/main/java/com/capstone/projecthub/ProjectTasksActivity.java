@@ -45,6 +45,7 @@ public class ProjectTasksActivity extends AppCompatActivity {
     private ArrayList<Tasks> tasksDone;
     private ArrayList<Tasks> tasksUndone;
     private ArrayList<Tasks> tasksError;
+    private final int KEY_RESULT_FOR_REFRESH_FROM_TASK = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class ProjectTasksActivity extends AppCompatActivity {
                                     individualTaskInThisProject.usersId = (ArrayList<String>) document.get(Constants.KEY_PROJECT_MEMBERS_ID);
                                     individualTaskInThisProject.dueDate = document.getDate(Constants.KEY_TASK_DUE_DATE);
                                     individualTaskInThisProject.assignedDate = document.getDate(Constants.KEY_TASK_ASSIGNED_DATE);
+                                    individualTaskInThisProject.tasksId = document.getId();
 
                                     tasksAll.add(individualTaskInThisProject);
                                 }
@@ -163,7 +165,10 @@ public class ProjectTasksActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new TasksListAdapter.OnItemClickListener() {
             @Override
             public void onClick(Tasks task) {
-                //(TODO) Navigate to task details while passing the task
+                Intent intent = new Intent(ProjectTasksActivity.this, TaskDetailsActivity.class);
+                intent.putExtra("putTaskForTaskDetails", task);
+                intent.putExtra("putProjectForTaskDetails", currentProject);
+                startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_FROM_TASK);
             }
         });
 
@@ -235,7 +240,10 @@ public class ProjectTasksActivity extends AppCompatActivity {
                 doneAdapter.setOnItemClickListener(new TasksListAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(Tasks task) {
-                        //(TODO) Pass data to activity
+                        Intent intent = new Intent(ProjectTasksActivity.this, TaskDetailsActivity.class);
+                        intent.putExtra("putTaskForTaskDetails", task);
+                        intent.putExtra("putProjectForTaskDetails", currentProject);
+                        startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_FROM_TASK);
                     }
                 });
 
@@ -260,7 +268,10 @@ public class ProjectTasksActivity extends AppCompatActivity {
                 undoneAdapter.setOnItemClickListener(new TasksListAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(Tasks task) {
-                        //(TODO) Pass data to activity
+                        Intent intent = new Intent(ProjectTasksActivity.this, TaskDetailsActivity.class);
+                        intent.putExtra("putTaskForTaskDetails", task);
+                        intent.putExtra("putProjectForTaskDetails", currentProject);
+                        startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_FROM_TASK);
                     }
                 });
 
@@ -285,7 +296,10 @@ public class ProjectTasksActivity extends AppCompatActivity {
                 errorAdapter.setOnItemClickListener(new TasksListAdapter.OnItemClickListener() {
                     @Override
                     public void onClick(Tasks task) {
-                        //(TODO) Pass data to activity
+                        Intent intent = new Intent(ProjectTasksActivity.this, TaskDetailsActivity.class);
+                        intent.putExtra("putTaskForTaskDetails", task);
+                        intent.putExtra("putProjectForTaskDetails", currentProject);
+                        startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_FROM_TASK);
                     }
                 });
 
@@ -371,6 +385,10 @@ public class ProjectTasksActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == KEY_RESULT_FOR_REFRESH_LIST) {
+            if (resultCode == RESULT_OK) {
+                loadTasksDetails();
+            }
+        } else if (requestCode == KEY_RESULT_FOR_REFRESH_FROM_TASK) {
             if (resultCode == RESULT_OK) {
                 loadTasksDetails();
             }

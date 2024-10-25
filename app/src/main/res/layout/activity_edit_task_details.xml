@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditTaskDetailsActivity"
+    android:background="@color/mainDark">
+
+    <ImageView
+        android:id="@+id/buttonBackFromEditTaskDetails"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/textEditTaskTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Task"
+        app:layout_constraintTop_toTopOf="@+id/buttonBackFromEditTaskDetails"
+        app:layout_constraintStart_toEndOf="@+id/buttonBackFromEditTaskDetails"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromEditTaskDetails"
+        android:fontFamily="@font/alata"
+        android:textSize="20sp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/whiteText" />
+
+    <ImageView
+        android:id="@+id/buttonEditTaskConfirm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/baseline_done_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonBackFromEditTaskDetails"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBackFromEditTaskDetails"
+        app:tint="@color/white"
+        android:layout_marginEnd="20dp"/>
+
+    <TextView
+        android:id="@+id/textEditTaskCustomisation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customization"
+        app:layout_constraintTop_toBottomOf="@+id/textEditTaskTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/grey" />
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEditTaskCustomisation"
+        android:id="@+id/buttonEditTaskTaskName"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/contract"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <EditText
+            android:id="@+id/editTextEditTaskTaskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Name"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditTaskTaskName"
+        android:id="@+id/buttonEditTaskTaskDesc"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/aa"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <EditText
+            android:id="@+id/editTextEditTaskTaskDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Desc"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"
+            android:maxWidth="300dp"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditTaskTaskDesc"
+        android:id="@+id/buttonEditTaskTaskDueDate"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/baseline_calendar_month_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/whiteText" />
+
+        <EditText
+            android:id="@+id/editTextEditTaskTaskDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Due Date"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/whiteText"
+            android:textSize="18sp"
+            android:fontFamily="@font/alata"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_marginStart="14dp"
+            android:layout_gravity="center"
+            app:tint="@color/hintColor"
+            android:visibility="visible"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

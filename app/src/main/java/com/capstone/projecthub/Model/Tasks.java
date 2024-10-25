@@ -1,12 +1,13 @@
 package com.capstone.projecthub.Model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Tasks {
-    public String projectId, status, tasksName, tasksDesc;
+public class Tasks implements Serializable {
+    public String projectId, status, tasksName, tasksDesc, tasksId;
     public Date dueDate, assignedDate;
     public ArrayList<String> usersId;
 
