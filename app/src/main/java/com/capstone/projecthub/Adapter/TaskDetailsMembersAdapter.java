@@ -1,19 +1,15 @@
 package com.capstone.projecthub.Adapter;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -65,7 +61,7 @@ public class TaskDetailsMembersAdapter extends RecyclerView.Adapter<TaskDetailsM
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //(TODO) Set a default pfp
+                        Glide.with(context).load(ContextCompat.getDrawable(context, R.drawable.nointernetdino)).into(holder.userProfileImage);
                     }
                 });
 
