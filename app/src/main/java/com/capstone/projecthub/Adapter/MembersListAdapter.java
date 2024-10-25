@@ -88,6 +88,11 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                     Glide.with(context).load(uri).into(holder.memberImage);
                                 }
                             });
+
+                            if (document.getString(Constants.KEY_USER_ID).equals(
+                                    preferenceManager.getString(Constants.KEY_USER_ID))) {
+                                holder.leaderIcon.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 });
@@ -222,7 +227,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView memberName, memberEmail;
-        ImageView memberImage, memberSetting;
+        ImageView memberImage, memberSetting, leaderIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -230,6 +235,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
             memberEmail = itemView.findViewById(R.id.textProfileEmailMembersList);
             memberImage = itemView.findViewById(R.id.imageProfileImageMembersList);
             memberSetting = itemView.findViewById(R.id.buttonMemberOption);
+            leaderIcon = itemView.findViewById(R.id.imageLeaderMemberList);
         }
     }
 

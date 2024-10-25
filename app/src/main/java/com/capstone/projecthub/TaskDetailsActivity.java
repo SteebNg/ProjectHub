@@ -77,7 +77,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
             binding.buttonTaskDetailsEditTaskDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //(TODO) Show Activity to edit tasks
                     Intent intent = new Intent(TaskDetailsActivity.this, EditTaskDetailsActivity.class);
                     intent.putExtra("putTaskToEditTask", task);
                     startActivityForResult(intent, KEY_RESULT_FOR_REFRESH_LIST);

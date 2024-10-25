@@ -70,6 +70,7 @@ public class TaskDetailsMembersAdapter extends RecyclerView.Adapter<TaskDetailsM
                 });
 
         holder.memberOption.setVisibility(View.GONE);
+        holder.leaderIcon.setVisibility(View.GONE);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class TaskDetailsMembersAdapter extends RecyclerView.Adapter<TaskDetailsM
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView username, userEmail;
-        ImageView userProfileImage, memberOption;
+        ImageView userProfileImage, memberOption, leaderIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +93,7 @@ public class TaskDetailsMembersAdapter extends RecyclerView.Adapter<TaskDetailsM
             userEmail = itemView.findViewById(R.id.textProfileEmailMembersList);
             userProfileImage = itemView.findViewById(R.id.imageProfileImageMembersList);
             memberOption = itemView.findViewById(R.id.buttonMemberOption);
+            leaderIcon = itemView.findViewById(R.id.imageLeaderMemberList);
         }
     }
 }
