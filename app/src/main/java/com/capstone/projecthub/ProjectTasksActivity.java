@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.capstone.projecthub.Adapter.TasksListAdapter;
 import com.capstone.projecthub.Model.Project;
 import com.capstone.projecthub.Model.Tasks;
+import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityProjectTasksBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,6 +47,7 @@ public class ProjectTasksActivity extends AppCompatActivity {
     private ArrayList<Tasks> tasksUndone;
     private ArrayList<Tasks> tasksError;
     private final int KEY_RESULT_FOR_REFRESH_FROM_TASK = 10;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,13 @@ public class ProjectTasksActivity extends AppCompatActivity {
         init();
         setListeners();
         loadTasksDetails();
+        checkLeader();
+    }
+
+    private void checkLeader() {
+        if (currentProject.projectLeaderId.equals(preferenceManager.getString(Constants.KEY_USER_ID))) {
+            binding.buttonProjectAssignTask.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadTasksDetails() {
@@ -375,6 +384,7 @@ public class ProjectTasksActivity extends AppCompatActivity {
         selectedQueryBackgroundNumber = binding.backgroundTasksListAllNumber;
         db = FirebaseFirestore.getInstance();
         currentProject = (Project) getIntent().getSerializableExtra("projectForTasks");
+        preferenceManager = new PreferenceManager(ProjectTasksActivity.this);
         tasksAll = new ArrayList<>();
         tasksDone = new ArrayList<>();
         tasksUndone = new ArrayList<>();

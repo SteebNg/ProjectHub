@@ -67,7 +67,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/textProjectTasksListsTodayDate"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="20dp"
-        app:iconTint="@color/mainDark"/>
+        app:iconTint="@color/mainDark"
+        android:visibility="gone"/>
 
     <HorizontalScrollView
         android:id="@+id/scrollTasksListCategory"
