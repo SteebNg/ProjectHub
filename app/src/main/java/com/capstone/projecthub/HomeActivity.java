@@ -1,7 +1,16 @@
 package com.capstone.projecthub;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,8 +26,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //(TODO) Check the internet status
-
     ActivityHomeBinding binding;
 
     @Override
@@ -32,6 +39,8 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        checkInternetAvailable();
 
         final Fragment fragmentHome = new HomeFragment();
         final Fragment fragmentProjects = new ProjectListsFragment();
@@ -78,5 +87,56 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkInternetAvailable() {
+        Handler handler = new Handler();
+
+        Runnable checkInternetTask = new Runnable() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!InternetIsConnected() || !NetworkIsConnected()) {
+                            Dialog dialog = new Dialog(HomeActivity.this);
+                            dialog.setContentView(R.layout.no_internet_dialog);
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.setCancelable(false);
+                            dialog.show();
+
+                            Button button = dialog.findViewById(R.id.buttonInternetRetry);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    finishAndRemoveTask(); //relaunch app
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        };
+
+        Thread threadForInternetStatus = new Thread(checkInternetTask);
+        threadForInternetStatus.start(); //no need to free the thread as Java will automatically free it
+    }
+
+    private boolean NetworkIsConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return connectivityManager.getActiveNetworkInfo() != null;
+    }
+
+    private boolean InternetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
