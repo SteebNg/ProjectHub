@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/no_internet_dialog_background"
+    android:paddingTop="14dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/imageProjectInviteLeaderImage"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="100dp"
+        android:background="@drawable/no_internet_dialog_background"
+        android:backgroundTint="@color/grey"/>
+
+    <TextView
+        android:id="@+id/textProjectInvitationLeaderSentence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/imageProjectInviteLeaderImage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageProjectInviteLeaderImage"
+        app:layout_constraintStart_toEndOf="@+id/imageProjectInviteLeaderImage"
+        android:text="Leader invites you to:"
+        android:textColor="@color/grey"
+        android:textSize="13sp"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project Name"
+        app:layout_constraintTop_toBottomOf="@+id/imageProjectInviteLeaderImage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/whiteText"
+        android:fontFamily="@font/alata"
+        android:textSize="18sp"
+        android:id="@+id/textProjectInvitationName"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        app:layout_constraintWidth_max="230dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project Desc"
+        app:layout_constraintTop_toBottomOf="@+id/textProjectInvitationName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/hintColor"
+        android:fontFamily="@font/alata"
+        android:textSize="15sp"
+        android:id="@+id/textProjectInvitationBody"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        app:layout_constraintWidth_max="360dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Date: dd/mm/yyyy"
+        app:layout_constraintTop_toTopOf="@+id/textProjectInvitationName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textProjectInvitationName"
+        android:textColor="@color/hintColor"
+        android:fontFamily="@font/alata"
+        android:textSize="13sp"
+        android:id="@+id/textProjectInvitationDueDate"
+        android:layout_marginTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textProjectInvitationBody"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/buttonRejectInvitation"
+            android:layout_marginEnd="10dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/mainDark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reject"
+                android:textColor="@color/whiteText"
+                android:fontFamily="@font/alata"
+                android:textSize="13sp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/buttonAcceptInvitation">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_rectangle"
+                android:backgroundTint="@color/mainGreen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept"
+                android:textColor="@color/mainDark"
+                android:fontFamily="@font/alata"
+                android:textSize="13sp"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

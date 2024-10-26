@@ -80,7 +80,7 @@ public class ProjectMembersListActivity extends AppCompatActivity {
 
     private MembersListAdapter getMembersListAdapter(ArrayList<String> membersId) {
 
-        return new MembersListAdapter(this, membersId, currentProject.projectId);
+        return new MembersListAdapter(this, membersId, currentProject);
     }
 
     private void init() {

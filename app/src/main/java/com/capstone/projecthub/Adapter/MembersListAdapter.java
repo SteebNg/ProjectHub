@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.capstone.projecthub.Model.Project;
 import com.capstone.projecthub.PreferenceManager.Constants;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.R;
@@ -36,17 +37,17 @@ import java.util.Map;
 public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.ViewHolder>{
     private ArrayList<String> membersId;
     private Context context;
-    private String projectId;
+    private Project project;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private StorageReference pathForProfileImage;
     private OnItemClickListener onItemClickListener;
     private PreferenceManager preferenceManager;
 
-    public MembersListAdapter(Context context, ArrayList<String> membersId, String projectId) {
+    public MembersListAdapter(Context context, ArrayList<String> membersId, Project project) {
         this.membersId = membersId;
         this.context = context;
-        this.projectId = projectId;
+        this.project = project;
     }
 
     @NonNull
@@ -87,8 +88,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                 }
                             });
 
-                            if (document.getId().equals(
-                                    preferenceManager.getString(Constants.KEY_USER_ID))) {
+                            if (membersId.get(position).equals(project.projectLeaderId)) {
                                 holder.leaderIcon.setVisibility(View.VISIBLE);
                             }
                         }
@@ -105,7 +105,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
         //It also checks if the membersId(position) is the same as the user
         //If the user ID is the same as the membersID(position), dont show the settings button
         db.collection(Constants.KEY_PROJECT_LISTS)
-                .document(projectId)
+                .document(project.projectId)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -146,7 +146,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                                     removeUserFromProject.put(Constants.KEY_PROJECT_MEMBERS_ID, FieldValue.arrayRemove(memberId));
 
                                                     db.collection(Constants.KEY_PROJECT_LISTS)
-                                                            .document(projectId)
+                                                            .document(project.projectId)
                                                             .update(removeUserFromProject)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
@@ -183,7 +183,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                                 @Override
                                                 public void onClick(View v) {
                                                     db.collection(Constants.KEY_PROJECT_LISTS)
-                                                            .document(projectId)
+                                                            .document(project.projectId)
                                                             .update(Constants.KEY_PROJECT_LEADER, memberId)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override

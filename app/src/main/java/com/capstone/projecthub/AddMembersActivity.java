@@ -184,12 +184,18 @@ public class AddMembersActivity extends AppCompatActivity {
         binding.buttonAddMembersToProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> pendingInvites = new HashMap<>();
-                pendingInvites.put(Constants.KEY_PENDING_INVITES, FieldValue.arrayUnion(addedUsers));
+                //have to convert to normal array cause for some gawd dam reason firestore thinks
+                //that ArrayList<String> is a nested array like, bro????????????????
+                String[] addedUsersId = new String[addedUsers.size()];
+                int i = 0;
+                for (User user : addedUsers) {
+                    addedUsersId[i] = user.userId;
+                    i++;
+                }
 
                 db.collection(Constants.KEY_PROJECT_LISTS)
                         .document(project.projectId)
-                        .update(pendingInvites)
+                        .update(Constants.KEY_PENDING_INVITES, FieldValue.arrayUnion(addedUsersId))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
