@@ -29,8 +29,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 public class ProjectTasksActivity extends AppCompatActivity {
 
@@ -75,6 +78,11 @@ public class ProjectTasksActivity extends AppCompatActivity {
     }
 
     private void loadTasksDetails() {
+        Date date = new Date();
+        String dateFormat = "dd/MM/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(dateFormat);
+        binding.textProjectTasksListsTodayDate.setText(df.format(date));
+
         db.collection(Constants.KEY_TASKS_LIST)
                 .whereEqualTo(Constants.KEY_PROJECT_ID, currentProject.projectId)
                 .get()

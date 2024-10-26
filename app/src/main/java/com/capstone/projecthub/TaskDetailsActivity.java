@@ -173,6 +173,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
     private void loadAssignedMembers() {
         int[] membersRetrievedFromDatabase = {0};
+        assignedUsers = new ArrayList<>();
         for (String usersId : assignedUsersId) {
             db.collection(Constants.KEY_USER_LIST).document(usersId).get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -181,7 +182,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document != null && document.exists()) {
-                                    assignedUsers = new ArrayList<>();
                                     assignedMembersAdapter = getAssignedMembersAdapter();
 
                                     User user = new User();

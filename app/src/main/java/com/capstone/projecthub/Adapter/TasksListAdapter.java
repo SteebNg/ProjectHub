@@ -2,6 +2,7 @@ package com.capstone.projecthub.Adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +52,18 @@ public class TasksListAdapter extends RecyclerView.Adapter<TasksListAdapter.View
         if (status.equals("Done")) {
             holder.doneOrNot.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_done_24));
             holder.backgroundStatus.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.mainGreen));
+            holder.taskName.setPaintFlags(holder.taskName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.taskDesc.setPaintFlags(holder.taskDesc.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else if (status.equals("Unfinished")){
             holder.doneOrNot.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_edit_24));
             holder.backgroundStatus.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.grey));
+            holder.taskName.setPaintFlags(holder.taskName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.taskDesc.setPaintFlags(holder.taskDesc.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         } else {
             holder.doneOrNot.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.danger));
             holder.backgroundStatus.setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.red));
+            holder.taskName.setPaintFlags(holder.taskName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.taskDesc.setPaintFlags(holder.taskDesc.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
 
         Date groupDate = tasks.get(position).dueDate;
