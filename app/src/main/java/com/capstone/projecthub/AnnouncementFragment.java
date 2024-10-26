@@ -206,7 +206,6 @@ public class AnnouncementFragment extends Fragment {
         binding.buttonRefreshAnnouncementListHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //(TODO) Refresh
                 findProjectThatTheUserIsIn();
             }
         });
