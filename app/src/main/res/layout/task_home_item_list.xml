@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mainDark"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/viewTimelineTaskItemList"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="19dp"
+        android:background="@color/hintColor"
+        android:visibility="visible"/>
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="@drawable/profile_image_background"
+        android:backgroundTint="@color/mainGreen"
+        android:id="@+id/viewBulletAnnouncement"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="19dp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/viewBulletAnnouncement"
+        app:layout_constraintTop_toTopOf="@+id/viewBulletAnnouncement"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBulletAnnouncement"
+        android:id="@+id/projectNameTasksItemHomeView"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/projectNameTasksItemListHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Project Name"
+            android:textSize="25sp"
+            android:textColor="@color/whiteText"
+            android:fontFamily="@font/alata"/>
+    </FrameLayout>
+
+    <View
+        android:id="@+id/backgroundTasksHomeItem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/no_internet_dialog_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/projectNameTasksItemHomeView"
+        app:layout_constraintTop_toBottomOf="@+id/projectNameTasksItemHomeView"
+        android:layout_marginEnd="14dp"/>
+
+    <TextView
+        android:id="@+id/textTasksNameListsHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tasks Name"
+        android:textColor="@color/whiteText"
+        android:textSize="16sp"
+        android:fontFamily="@font/alata"
+        app:layout_constraintStart_toStartOf="@id/backgroundTasksHomeItem"
+        app:layout_constraintTop_toTopOf="@+id/backgroundTasksHomeItem"
+        android:maxLines="1"
+        app:layout_constraintWidth_max="300dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:id="@+id/textTasksDescListsHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tasks Desc"
+        android:textColor="@color/hintColor"
+        android:textSize="12sp"
+        android:fontFamily="@font/alata"
+        app:layout_constraintStart_toStartOf="@id/textTasksNameListsHome"
+        app:layout_constraintTop_toBottomOf="@+id/textTasksNameListsHome"
+        android:maxLines="2"
+        app:layout_constraintWidth_max="310dp" />
+
+    <ImageView
+        android:id="@+id/imageCalenderTasksListItemHome"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:layout_constraintTop_toBottomOf="@id/textTasksDescListsHome"
+        app:layout_constraintStart_toStartOf="@+id/textTasksDescListsHome"
+        android:src="@drawable/baseline_calendar_month_24"
+        android:layout_marginTop="18dp"
+        app:tint="@color/mainGreen" />
+
+    <TextView
+        android:id="@+id/textTasksDueDateListsHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wednesday, 11 May 2024"
+        android:textColor="@color/grey"
+        app:layout_constraintTop_toTopOf="@+id/imageCalenderTasksListItemHome"
+        app:layout_constraintBottom_toBottomOf="@+id/imageCalenderTasksListItemHome"
+        app:layout_constraintStart_toEndOf="@+id/imageCalenderTasksListItemHome"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:textSize="12sp"
+        android:paddingBottom="16dp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/textTasksNameListsHome"
+        app:layout_constraintBottom_toBottomOf="@+id/textTasksDescListsHome"
+        app:layout_constraintEnd_toEndOf="@id/backgroundTasksHomeItem"
+        android:layout_marginEnd="14dp"
+        android:visibility="visible">
+
+        <View
+            android:id="@+id/backgroundTasksDoneListsHome"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/profile_image_background"
+            android:backgroundTint="@color/grey" />
+
+        <ImageView
+            android:id="@+id/imageTasksDoneListsHome"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/baseline_edit_24"
+            android:layout_gravity="center"
+            app:tint="@color/mainDark" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.capstone.projecthub.Constants;
+import com.capstone.projecthub.PreferenceManager.Constants;
 import com.capstone.projecthub.Model.Announcement;
 import com.capstone.projecthub.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,7 +50,7 @@ public class AnnouncementListAdapter extends RecyclerView.Adapter<AnnouncementLi
         holder.announcementTitle.setText(announcements.get(position).title);
         holder.announcementBody.setText(announcements.get(position).body);
 
-        String displayDate = "Posted on " + announcements.get(position).dateString();
+        String displayDate = "Posted on " + announcements.get(position).dateTimeString();
         holder.announcementDate.setText(displayDate);
 
         storage = FirebaseStorage.getInstance();

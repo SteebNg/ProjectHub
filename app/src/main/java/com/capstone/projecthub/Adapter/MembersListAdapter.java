@@ -18,13 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.capstone.projecthub.Constants;
+import com.capstone.projecthub.PreferenceManager.Constants;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -89,7 +87,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                 }
                             });
 
-                            if (document.getString(Constants.KEY_USER_ID).equals(
+                            if (document.getId().equals(
                                     preferenceManager.getString(Constants.KEY_USER_ID))) {
                                 holder.leaderIcon.setVisibility(View.VISIBLE);
                             }

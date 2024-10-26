@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.capstone.projecthub.Constants;
+import com.capstone.projecthub.PreferenceManager.Constants;
 import com.capstone.projecthub.Model.User;
 import com.capstone.projecthub.R;
 import com.google.android.gms.tasks.OnFailureListener;

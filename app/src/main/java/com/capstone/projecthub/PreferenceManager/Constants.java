@@ -1,4 +1,4 @@
-package com.capstone.projecthub;
+package com.capstone.projecthub.PreferenceManager;
 
 public class Constants {
 

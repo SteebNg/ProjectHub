@@ -1,6 +1,5 @@
 package com.capstone.projecthub;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +24,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.capstone.projecthub.PreferenceManager.Constants;
 import com.capstone.projecthub.PreferenceManager.PreferenceManager;
 import com.capstone.projecthub.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
