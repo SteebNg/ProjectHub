@@ -84,6 +84,40 @@
             android:gravity="center_vertical"
             android:paddingBottom="4dp"
             android:maxLines="2"
-            android:textSize="13sp"/> <!--TODO: Could be a progress bar or announcement -->
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/textProgressProjectList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Progress"
+            android:textColor="@color/hintColor"
+            app:layout_constraintTop_toBottomOf="@+id/textProjectDescLists"
+            app:layout_constraintStart_toStartOf="@+id/textProjectDescLists"
+            android:fontFamily="@font/alata"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/textProgressPercentProjectList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textColor="@color/hintColor"
+            app:layout_constraintTop_toTopOf="@+id/textProgressProjectList"
+            app:layout_constraintBottom_toBottomOf="@+id/textProgressProjectList"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/alata"
+            android:textSize="13sp" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            app:layout_constraintStart_toStartOf="@+id/textProjectListsName"
+            app:layout_constraintEnd_toEndOf="@+id/textProgressPercentProjectList"
+            app:layout_constraintTop_toBottomOf="@+id/textProgressProjectList"
+            android:layout_marginTop="4dp"
+            android:progress="0"
+            android:id="@+id/progressBarProjectListsItem"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
