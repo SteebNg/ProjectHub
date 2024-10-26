@@ -95,7 +95,8 @@
             app:layout_constraintTop_toBottomOf="@+id/textProjectDescLists"
             app:layout_constraintStart_toStartOf="@+id/textProjectDescLists"
             android:fontFamily="@font/alata"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"/>
 
         <TextView
             android:id="@+id/textProgressPercentProjectList"
