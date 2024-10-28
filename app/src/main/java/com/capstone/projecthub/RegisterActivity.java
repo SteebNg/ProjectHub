@@ -30,6 +30,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,16 +100,16 @@ public class RegisterActivity extends AppCompatActivity {
         binding.imageEyeHideConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.imageEyeHide.setVisibility(View.GONE);
-                binding.imageEyeShow.setVisibility(View.VISIBLE);
+                binding.imageEyeHideConfirm.setVisibility(View.GONE);
+                binding.imageEyeShowConfirm.setVisibility(View.VISIBLE);
                 binding.editTextConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
         });
         binding.imageEyeShowConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.imageEyeHide.setVisibility(View.VISIBLE);
-                binding.imageEyeShow.setVisibility(View.GONE);
+                binding.imageEyeHideConfirm.setVisibility(View.VISIBLE);
+                binding.imageEyeShowConfirm.setVisibility(View.GONE);
                 binding.editTextConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
@@ -181,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Map<String, Object> user = new HashMap<>();
         user.put(Constants.KEY_EMAIL, binding.editTextEmail.getText().toString().trim());
-        user.put(Constants.KEY_PASSWORD, binding.editTextPassword.getText().toString());
+        user.put(Constants.KEY_PASSWORD, encryptString(binding.editTextPassword.getText().toString()));
         user.put(Constants.KEY_USERNAME, binding.editTextUsername.getText().toString());
 
         db.collection(Constants.KEY_USER_LIST).document(currentUser.getUid())
@@ -259,5 +262,13 @@ public class RegisterActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
+    }
+
+    private String encryptString(String stringValue) {
+        byte[] stringInBytes = new byte[0];
+
+        stringInBytes = stringValue.getBytes(StandardCharsets.UTF_8);
+
+        return Base64.getEncoder().encodeToString(stringInBytes);
     }
 }
