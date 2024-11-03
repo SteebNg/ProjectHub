@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser currentUser;
     private StorageReference storageReference;
     private final int PICK_IMAGE_REQUEST = 1;
+    private final int RESET_PASSWORD_SENT = 15;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,6 +123,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 openFileChooser();
+            }
+        });
+        binding.buttonResetPasswordProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ResetPasswordActivity.class);
+                startActivityForResult(intent, RESET_PASSWORD_SENT);
             }
         });
     }
@@ -179,6 +187,8 @@ public class ProfileFragment extends Fragment {
                             showToast("Something went wrong");
                         }
                     });
+        } else if (requestCode == RESET_PASSWORD_SENT && resultCode == RESULT_OK) {
+            signOut();
         }
     }
 }

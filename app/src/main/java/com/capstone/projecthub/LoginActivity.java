@@ -152,6 +152,13 @@ public class LoginActivity extends AppCompatActivity {
                 binding.editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
+        binding.textForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void signIn() {

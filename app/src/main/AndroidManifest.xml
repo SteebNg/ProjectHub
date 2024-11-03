@@ -20,6 +20,9 @@
         android:theme="@style/Theme.ProjectHub"
         tools:targetApi="31">
         <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditTaskDetailsActivity"
             android:exported="false" />
         <activity

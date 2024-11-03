@@ -92,7 +92,7 @@
             android:textColor="@color/hintColor"/>
 
         <View
-            android:id="@+id/buttonLogout"
+            android:id="@+id/buttonResetPasswordProfile"
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:background="@drawable/rounded_rectangle"
@@ -102,6 +102,62 @@
             android:layout_marginStart="26dp"
             android:layout_marginEnd="26dp"
             android:layout_marginTop="24dp"/>
+
+        <FrameLayout
+            android:id="@+id/imageResetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/buttonResetPasswordProfile"
+            app:layout_constraintStart_toStartOf="@+id/buttonResetPasswordProfile"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonResetPasswordProfile"
+            android:layout_marginStart="10dp">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/profile_image_background"
+                android:backgroundTint="@color/secondDark" />
+
+            <ImageView
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/lock"
+                android:layout_gravity="center"
+                app:tint="@color/whiteText" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset Password"
+            app:layout_constraintStart_toEndOf="@+id/imageResetPassword"
+            app:layout_constraintTop_toTopOf="@+id/imageResetPassword"
+            app:layout_constraintBottom_toBottomOf="@+id/imageResetPassword"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/alata"
+            android:paddingBottom="3dp"
+            android:textColor="@color/mainDark"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/buttonResetPasswordProfile"
+            app:layout_constraintTop_toTopOf="@+id/buttonResetPasswordProfile"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonResetPasswordProfile"
+            android:src="@drawable/baseline_arrow_forward_ios_24"
+            android:layout_marginEnd="5dp"/>
+
+        <View
+            android:id="@+id/buttonLogout"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_rectangle"
+            app:layout_constraintTop_toBottomOf="@+id/buttonResetPasswordProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="26dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginTop="12dp"/>
 
         <FrameLayout
             android:id="@+id/imageLogout"

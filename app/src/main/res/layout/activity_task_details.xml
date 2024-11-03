@@ -64,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Task Description: "
-        app:layout_constraintTop_toBottomOf="@+id/buttonTaskDetailsSetStatus"
+        app:layout_constraintTop_toBottomOf="@+id/layoutForTaskDetailsButtons"
         app:layout_constraintStart_toStartOf="@+id/textTaskDetailsName"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp"
@@ -135,34 +135,38 @@
             android:layout_gravity="center"/>
     </FrameLayout>
 
-    <Button
-        android:id="@+id/buttonTaskDetailsSetStatus"
+    <LinearLayout
+        android:id="@+id/layoutForTaskDetailsButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Status"
-        android:backgroundTint="@color/mainGreen"
-        android:textColor="@color/mainDark"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/textTaskDetailsAssignedDate"
         app:layout_constraintStart_toStartOf="@+id/textTaskDetailsAssignedDate"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/alata"
-        android:paddingBottom="8dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="12dp">
 
-    <Button
-        android:id="@+id/buttonTaskDetailsEditTaskDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Task Details"
-        android:backgroundTint="@color/mainGreen"
-        android:textColor="@color/mainDark"
-        app:layout_constraintTop_toTopOf="@+id/buttonTaskDetailsSetStatus"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonTaskDetailsSetStatus"
-        app:layout_constraintStart_toEndOf="@+id/buttonTaskDetailsSetStatus"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/alata"
-        android:paddingBottom="8dp"
-        android:visibility="gone"/>
+        <Button
+            android:id="@+id/buttonTaskDetailsSetStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Status"
+            android:backgroundTint="@color/mainGreen"
+            android:textColor="@color/mainDark"
+            android:fontFamily="@font/alata"
+            android:paddingBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/buttonTaskDetailsEditTaskDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Task Details"
+            android:backgroundTint="@color/mainGreen"
+            android:textColor="@color/mainDark"
+            android:fontFamily="@font/alata"
+            android:paddingBottom="8dp"
+            android:visibility="gone"/>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="0dp"

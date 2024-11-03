@@ -21,4 +21,5 @@
     <color name="lightBlue">#7068ec</color>
     <color name="transparentYellow">#B3FFEB3B</color>
     <color name="unSelectedButtonBackground">#2a2a2a</color>
+    <color name="secondHintColor">#B3888888</color>
 </resources>
