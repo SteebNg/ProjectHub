@@ -1,6 +1,9 @@
 package com.capstone.projecthub;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -29,12 +33,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -43,6 +51,10 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private PreferenceManager preferenceManager;
+    private Random random;
+    private Uri defaultProfileImg;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,10 +157,12 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     currentUser = auth.getCurrentUser();
 
+                    defaultProfileImg = getRandomProfileImage();
+
                     //setDisplayName
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(binding.editTextUsername.getText().toString())
-                                    .build();
+                            .build();
                     currentUser.updateProfile(profileUpdates)
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -180,6 +194,19 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void setProfilePic() {
+        storageReference.child(currentUser.getUid() + "/" + Constants.KEY_PROFILE_IMAGE)
+                .putFile(defaultProfileImg)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Intent intent = new Intent(RegisterActivity.this, NotifyEmailVerifyActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+    }
+
     private void registerUserToDb() {
 
         Map<String, Object> user = new HashMap<>();
@@ -192,9 +219,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Intent intent = new Intent(RegisterActivity.this, NotifyEmailVerifyActivity.class);
-                        startActivity(intent);
-                        finish();
+                        setProfilePic();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -258,10 +283,49 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private Uri getRandomProfileImage() {
+        int number = random.nextInt(6);
+        Context context = RegisterActivity.this;
+        int imageChoosenId;
+
+        switch (number) {
+            case 0: {
+                imageChoosenId = R.drawable.capybara;
+                break;
+            }
+            case 1: {
+                imageChoosenId = R.drawable.ketchup;
+                break;
+            }
+            case 2: {
+                imageChoosenId = R.drawable.pizza;
+                break;
+            }
+            case 3: {
+                imageChoosenId = R.drawable.santa_hat;
+                break;
+            }
+            case 4: {
+                imageChoosenId = R.drawable.teddybear;
+                break;
+            }
+            default: {
+                imageChoosenId = R.drawable.watermelon;
+                break;
+            }
+        }
+        String packageName = getPackageName();
+
+        return Uri.parse("android.resource://" + packageName + "/" + imageChoosenId);
+    }
+
     private void init() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
+        random = new Random();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference().child(Constants.KEY_USER_LIST + "/");
     }
 
     private String encryptString(String stringValue) {

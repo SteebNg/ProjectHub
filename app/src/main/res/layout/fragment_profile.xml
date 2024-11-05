@@ -35,7 +35,7 @@
             android:scaleType="centerCrop"
             android:background="@drawable/profile_image_background"
             android:layout_marginTop="80dp"
-            app:riv_oval="true"/>
+            app:riv_oval="true" />
 
         <FrameLayout
             android:id="@+id/layoutCamera"
