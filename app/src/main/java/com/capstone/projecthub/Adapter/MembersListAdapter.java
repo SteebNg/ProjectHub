@@ -189,6 +189,7 @@ public class MembersListAdapter extends RecyclerView.Adapter<MembersListAdapter.
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
                                                                     Toast.makeText(context, "Transfer Successful", Toast.LENGTH_SHORT).show();
+                                                                    dialog.dismiss();
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
