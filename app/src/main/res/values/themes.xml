@@ -4,9 +4,5 @@
 
     </style>
 
-    <style name="SearchViewTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/whiteText</item>
-    </style>
-
     <style name="Theme.ProjectHub" parent="Base.Theme.ProjectHub" />
 </resources>

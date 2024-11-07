@@ -3,6 +3,7 @@ package com.capstone.projecthub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -263,6 +265,9 @@ public class AssignMembersToTaskActivity extends AppCompatActivity {
         projectId = currentProject.projectId;
         projectMembers = new ArrayList<>();
         assignedProjectMembers = new ArrayList<>();
+
+        EditText searchViewET = findViewById(R.id.searchBarTasksAssignMembers);
+        searchViewET.setTextColor(ContextCompat.getColorStateList(AssignMembersToTaskActivity.this, R.color.whiteText));
     }
 
     @Override
