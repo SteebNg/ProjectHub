@@ -158,6 +158,7 @@ public class AnnouncementFragment extends Fragment {
                                 }
                             } else {
                                 isRecyclerLoading(false);
+                                binding.imageNoAnnouncement.setVisibility(View.VISIBLE);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
