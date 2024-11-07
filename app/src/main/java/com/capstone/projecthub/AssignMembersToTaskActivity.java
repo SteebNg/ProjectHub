@@ -265,9 +265,6 @@ public class AssignMembersToTaskActivity extends AppCompatActivity {
         projectId = currentProject.projectId;
         projectMembers = new ArrayList<>();
         assignedProjectMembers = new ArrayList<>();
-
-        EditText searchViewET = findViewById(R.id.searchBarTasksAssignMembers);
-        searchViewET.setTextColor(ContextCompat.getColorStateList(AssignMembersToTaskActivity.this, R.color.whiteText));
     }
 
     @Override
