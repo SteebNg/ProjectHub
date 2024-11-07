@@ -4,7 +4,7 @@
 
     </style>
     
-    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.SearchView">
 
         <item name="android:textColor">@color/whiteText</item>
     </style>

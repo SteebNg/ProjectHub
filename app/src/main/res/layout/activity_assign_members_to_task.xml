@@ -46,7 +46,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:iconifiedByDefault="false"
-        android:queryBackground="@null"/>
+        android:queryBackground="@null"
+        android:theme="@style/SearchAutoCompleteTextView"/>
 
     <TextView
         android:id="@+id/buttonTasksNextAssignMembers"
