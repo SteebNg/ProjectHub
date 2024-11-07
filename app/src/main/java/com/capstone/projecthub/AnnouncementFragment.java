@@ -155,10 +155,11 @@ public class AnnouncementFragment extends Fragment {
                                     adapter.notifyDataSetChanged();
                                     isRecyclerLoading(false);
                                     binding.imageNoAnnouncement.setVisibility(View.GONE);
+                                } else {
+                                    binding.imageNoAnnouncement.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 isRecyclerLoading(false);
-                                binding.imageNoAnnouncement.setVisibility(View.VISIBLE);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
