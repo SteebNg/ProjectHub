@@ -141,13 +141,6 @@ public class ProjectMembersListActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.buttonRefreshMembersList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isListLoading(true);
-                loadMembersList();
-            }
-        });
         binding.buttonAddMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
