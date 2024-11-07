@@ -1,7 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ProjectHub" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:editTextColor">@color/whiteText</item>
+
+    </style>
+    
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+
+        <item name="android:textColor">@color/whiteText</item>
     </style>
 
     <style name="Theme.ProjectHub" parent="Base.Theme.ProjectHub" />
