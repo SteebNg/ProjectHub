@@ -32,8 +32,8 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfileAnnouncementHome"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAnnouncementProjectNameHome"
         android:background="@drawable/profile_image_background"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageProfileAnnouncementHome"
         android:layout_marginStart="12dp"
         android:textColor="@color/whiteText"
-        android:textSize="17sp"
+        android:textSize="14sp"
         android:fontFamily="@font/alata"
         android:maxLines="1"
         android:layout_marginTop="-7dp"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textAnnouncementAnnouncerNameHome"
         app:layout_constraintStart_toStartOf="@+id/textAnnouncementAnnouncerNameHome"
         android:textColor="@color/hintColor"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:fontFamily="@font/alata"
         android:maxLines="1"
         app:layout_constraintWidth_max="250dp"/>
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textAnnouncementTitleHome"
         app:layout_constraintStart_toStartOf="@+id/textAnnouncementTitleHome"
         android:textColor="@color/grey"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:fontFamily="@font/alata"
         android:maxLines="2"
         android:paddingBottom="14dp"
@@ -95,6 +95,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/textAnnouncementAnnouncerNameHome"
         android:layout_marginEnd="10dp"
         android:textColor="@color/hintColor"
-        android:textSize="14sp"
+        android:textSize="11sp"
         android:fontFamily="@font/alata" />
 </androidx.constraintlayout.widget.ConstraintLayout>
