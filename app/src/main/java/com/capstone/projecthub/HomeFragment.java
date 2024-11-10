@@ -355,6 +355,7 @@ public class HomeFragment extends Fragment {
                 loadInvitationDetails();
                 loadProjectDetails();
                 loadTaskDetails();
+                loadUserDetails();
             }
         });
     }
