@@ -22,8 +22,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EditTaskDetailsActivity extends AppCompatActivity {
@@ -78,7 +82,7 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
                     Map<String, Object> update = new HashMap<>();
                     update.put(Constants.KEY_TASK_NAME, binding.editTextEditTaskTaskName.getText().toString());
                     update.put(Constants.KEY_TASK_DESC, binding.editTextEditTaskTaskDesc.getText().toString());
-                    update.put(Constants.KEY_TASK_DUE_DATE, binding.editTextEditTaskTaskDueDate.getText().toString());
+                    update.put(Constants.KEY_TASK_DUE_DATE, getDate());
 
                     db.collection(Constants.KEY_TASKS_LIST).document(task.tasksId).update(update)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -116,6 +120,18 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+    }
+
+    private Date getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        try {
+            //Success
+            return dateFormat.parse(binding.editTextEditTaskTaskDueDate.getText().toString());
+        } catch (ParseException e) {
+            Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     private void init() {

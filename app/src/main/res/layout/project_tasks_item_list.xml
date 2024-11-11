@@ -64,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textProjectTasksNameLists"
         android:maxLines="2"
-        app:layout_constraintWidth_max="310dp"
+        app:layout_constraintWidth_max="290dp"
         android:layout_marginStart="20dp"/>
 
     <FrameLayout
